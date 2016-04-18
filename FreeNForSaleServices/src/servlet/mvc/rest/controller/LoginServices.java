@@ -9,7 +9,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+
 import org.hibernate.Session;
+
+import servlet.mvc.rest.model.Category;
 import servlet.mvc.rest.model.Department;
 import servlet.mvc.rest.utility.HibernateUtil;
  
@@ -33,14 +36,17 @@ public class LoginServices {
 	@Path("/availableusername/{username}")
 	@GET
 	public void availableUsername(@PathParam("username") String username) {
-		 int empId = Integer.parseInt(username);
+		try{ 
+		int empId = Integer.parseInt(username);
 	        //logger.info("Request Param empId="+empId);
 		 Session session = HibernateUtil.getSessionFactory().openSession();
 
 			session.beginTransaction();
-			Department d= (Department) session.get(Department.class, empId);
+			Category d= (Category) session.get(Category.class, empId);
 			session.getTransaction().commit();
-			System.out.println(d.getDname());
-
+			System.out.println(d.getName());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }
