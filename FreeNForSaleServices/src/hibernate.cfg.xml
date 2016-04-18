@@ -13,7 +13,7 @@
          
          
         <!-- Mapping with model class containing annotations -->
-    <mapping class="servlet.mvc.rest.model.Department"/>
         <mapping class="servlet.mvc.rest.model.Category"/>
+        <mapping class="servlet.mvc.rest.model.UserLoginInfo"/>
     </session-factory>
 </hibernate-configuration>

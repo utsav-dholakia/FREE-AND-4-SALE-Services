@@ -2,6 +2,7 @@ package servlet.mvc.rest.model;// default package
 // Generated Apr 17, 2016 3:22:53 PM by Hibernate Tools 4.3.1.Final
 
 import java.util.Date;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
