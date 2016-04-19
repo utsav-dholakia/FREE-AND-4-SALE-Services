@@ -33,7 +33,7 @@ public class LoginDao {
 		List <UserLoginInfo> userLoginInfo = query.list(); 
 		//UserLoginInfo userLoginInfo = (UserLoginInfo) session.get(UserLoginInfo.class, bean.getName());
 		session.getTransaction().commit();
-		if (tx!=null) tx.rollback();     
+		//if (tx!=null) tx.rollback();     
 	        session.close(); 
 		System.out.println("query success");
 		return userLoginInfo;
@@ -53,7 +53,7 @@ public class LoginDao {
         user.setLastLoginTime(new Date());
 		session.update(user); 
         tx.commit();
-        if (tx!=null) tx.rollback();     
+    //    if (tx!=null) tx.rollback();     
         session.close(); 
 	}
 
@@ -70,7 +70,7 @@ public class LoginDao {
         user.setFailedAttempts(i);;
 		session.update(user); 
         tx.commit();
-        if (tx!=null) tx.rollback();     
+      //  if (tx!=null) tx.rollback();     
         session.close(); 
 	}
 	

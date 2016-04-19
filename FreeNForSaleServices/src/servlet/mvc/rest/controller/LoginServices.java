@@ -1,5 +1,8 @@
 package servlet.mvc.rest.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -7,8 +10,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -26,25 +27,27 @@ public class LoginServices {
 	 * @param bean
 	 * @param key
 	 * @return
+	 * @throws URISyntaxException 
 	 */
 	@Path("/checkuservalidity")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-	public Response isValidUser(LoginBean bean, @HeaderParam("secretKey")String key) {
-        
+	public Response isValidUser(LoginBean bean, @HeaderParam("secretKey")String key) throws URISyntaxException {
+        URI tempRedirect=new URI("https://localhost:8843/Error.html");
 		if(key.equals(secretKey))
 		{
 			String response = "";
 			try{
+				
 			response = manager.validateUser(bean);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			if(response.equals(""))
+			if(response.equals("-1"))
 			{
-				return Response.ok().entity(String.valueOf("-1")).build();
-			}
+				Response.status(400);
+				return Response.ok().entity(String.valueOf(response)).build();			}
 			else
 			{
 				return Response.ok().entity(String.valueOf(response)).build();
@@ -53,7 +56,7 @@ public class LoginServices {
 		else
 		{
 			Response.status(400);
-			return Response.ok().build();
+			return Response.temporaryRedirect(tempRedirect).build();
 		}
 		
 	}
