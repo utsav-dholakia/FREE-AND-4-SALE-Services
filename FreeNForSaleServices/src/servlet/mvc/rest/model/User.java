@@ -4,6 +4,7 @@ package servlet.mvc.rest.model;// default package
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +18,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -27,27 +29,79 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "User", catalog = "FreeNForSale")
 public class User implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 166975415335427611L;
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userlogininfo"))
+	@Id
+	@GeneratedValue(generator = "generator")
+	@Column(name = "UId", unique = true, nullable = false)
 	private int uid;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "StateId")
 	private State state;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
 	private UserLoginInfo userlogininfo;
+	
+	@Column(name = "Name", nullable = false, length = 30)
 	private String name;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "Bdate", length = 10)
 	private Date bdate;
+	
+	@Column(name = "Phone", nullable = false)
 	private int phone;
+	
+	@Column(name = "Email", nullable = false, length = 30)
 	private String email;
+	
+	@Column(name = "Street", length = 25)
 	private String street;
+	
+	@Column(name = "City", length = 15)
 	private String city;
+	
+	@Column(name = "Zipcode")
 	private Integer zipcode;
+	
+	@Column(name = "Sex", length = 1)
 	private String sex;
+	
+	@Column(name = "SSN")
 	private Long ssn;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "LastLoginTime", nullable = false, length = 19)
 	private Date lastLoginTime;
+	
+	@Column(name = "FailedAttempts", nullable = false)
 	private int failedAttempts;
+	
+	@Column(name = "ProfilePhoto", length = 100)
 	private String profilePhoto;
-	private Set finances = new HashSet(0);
-	private Set transactions = new HashSet(0);
-	private Set carts = new HashSet(0);
-	private Set inventories = new HashSet(0);
-	private Sellerreview sellerreviewByUid;
-	private Set sellerreviewsForUid = new HashSet(0);
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Finance> finances = new HashSet<Finance>(0);
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Transaction> transactions = new HashSet<Transaction>(0);
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Cart> carts = new HashSet<Cart>(0);
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Inventory> inventories = new HashSet<Inventory>(0);
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userByUid")
+	private SellerReview sellerreviewByUid;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUid_1")
+	private Set<SellerReview> sellerreviewsForUid = new HashSet<SellerReview>(0);
 
 	public User() {
 	}
@@ -62,37 +116,6 @@ public class User implements java.io.Serializable {
 		this.failedAttempts = failedAttempts;
 	}
 
-	public User(State state, UserLoginInfo userlogininfo, String name, Date bdate, int phone, String email,
-			String street, String city, Integer zipcode, String sex, Long ssn, Date lastLoginTime, int failedAttempts,
-			String profilePhoto, Set finances, Set transactions, Set carts, Set inventories,
-			Sellerreview sellerreviewByUid, Set sellerreviewsForUid) {
-		this.state = state;
-		this.userlogininfo = userlogininfo;
-		this.name = name;
-		this.bdate = bdate;
-		this.phone = phone;
-		this.email = email;
-		this.street = street;
-		this.city = city;
-		this.zipcode = zipcode;
-		this.sex = sex;
-		this.ssn = ssn;
-		this.lastLoginTime = lastLoginTime;
-		this.failedAttempts = failedAttempts;
-		this.profilePhoto = profilePhoto;
-		this.finances = finances;
-		this.transactions = transactions;
-		this.carts = carts;
-		this.inventories = inventories;
-		this.sellerreviewByUid = sellerreviewByUid;
-		this.sellerreviewsForUid = sellerreviewsForUid;
-	}
-
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userlogininfo"))
-	@Id
-	@GeneratedValue(generator = "generator")
-
-	@Column(name = "UId", unique = true, nullable = false)
 	public int getUid() {
 		return this.uid;
 	}
@@ -101,8 +124,7 @@ public class User implements java.io.Serializable {
 		this.uid = uid;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "StateId")
+	
 	public State getState() {
 		return this.state;
 	}
@@ -111,8 +133,6 @@ public class User implements java.io.Serializable {
 		this.state = state;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
 	public UserLoginInfo getUserLoginInfo() {
 		return this.userlogininfo;
 	}
@@ -121,7 +141,6 @@ public class User implements java.io.Serializable {
 		this.userlogininfo = userlogininfo;
 	}
 
-	@Column(name = "Name", nullable = false, length = 30)
 	public String getName() {
 		return this.name;
 	}
@@ -130,8 +149,7 @@ public class User implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Bdate", length = 10)
+	
 	public Date getBdate() {
 		return this.bdate;
 	}
@@ -140,7 +158,6 @@ public class User implements java.io.Serializable {
 		this.bdate = bdate;
 	}
 
-	@Column(name = "Phone", nullable = false)
 	public int getPhone() {
 		return this.phone;
 	}
@@ -149,7 +166,6 @@ public class User implements java.io.Serializable {
 		this.phone = phone;
 	}
 
-	@Column(name = "Email", nullable = false, length = 30)
 	public String getEmail() {
 		return this.email;
 	}
@@ -158,7 +174,6 @@ public class User implements java.io.Serializable {
 		this.email = email;
 	}
 
-	@Column(name = "Street", length = 25)
 	public String getStreet() {
 		return this.street;
 	}
@@ -167,7 +182,6 @@ public class User implements java.io.Serializable {
 		this.street = street;
 	}
 
-	@Column(name = "City", length = 15)
 	public String getCity() {
 		return this.city;
 	}
@@ -176,7 +190,6 @@ public class User implements java.io.Serializable {
 		this.city = city;
 	}
 
-	@Column(name = "Zipcode")
 	public Integer getZipcode() {
 		return this.zipcode;
 	}
@@ -185,7 +198,6 @@ public class User implements java.io.Serializable {
 		this.zipcode = zipcode;
 	}
 
-	@Column(name = "Sex", length = 1)
 	public String getSex() {
 		return this.sex;
 	}
@@ -194,7 +206,6 @@ public class User implements java.io.Serializable {
 		this.sex = sex;
 	}
 
-	@Column(name = "SSN")
 	public Long getSsn() {
 		return this.ssn;
 	}
@@ -203,8 +214,7 @@ public class User implements java.io.Serializable {
 		this.ssn = ssn;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LastLoginTime", nullable = false, length = 19)
+	
 	public Date getLastLoginTime() {
 		return this.lastLoginTime;
 	}
@@ -213,7 +223,6 @@ public class User implements java.io.Serializable {
 		this.lastLoginTime = lastLoginTime;
 	}
 
-	@Column(name = "FailedAttempts", nullable = false)
 	public int getFailedAttempts() {
 		return this.failedAttempts;
 	}
@@ -222,7 +231,6 @@ public class User implements java.io.Serializable {
 		this.failedAttempts = failedAttempts;
 	}
 
-	@Column(name = "ProfilePhoto", length = 100)
 	public String getProfilePhoto() {
 		return this.profilePhoto;
 	}
@@ -231,57 +239,51 @@ public class User implements java.io.Serializable {
 		this.profilePhoto = profilePhoto;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set getFinances() {
+	public Set<Finance> getFinances() {
 		return this.finances;
 	}
 
-	public void setFinances(Set finances) {
+	public void setFinances(Set<Finance> finances) {
 		this.finances = finances;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set getTransactions() {
+	public Set<Transaction> getTransactions() {
 		return this.transactions;
 	}
 
-	public void setTransactions(Set transactions) {
+	public void setTransactions(Set<Transaction> transactions) {
 		this.transactions = transactions;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set getCarts() {
+	public Set<Cart> getCarts() {
 		return this.carts;
 	}
 
-	public void setCarts(Set carts) {
+	public void setCarts(Set<Cart> carts) {
 		this.carts = carts;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	public Set getInventories() {
+	public Set<Inventory> getInventories() {
 		return this.inventories;
 	}
 
-	public void setInventories(Set inventories) {
+	public void setInventories(Set<Inventory> inventories) {
 		this.inventories = inventories;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userByUid")
-	public Sellerreview getSellerreviewByUid() {
+	public SellerReview getSellerreviewByUid() {
 		return this.sellerreviewByUid;
 	}
 
-	public void setSellerreviewByUid(Sellerreview sellerreviewByUid) {
+	public void setSellerreviewByUid(SellerReview sellerreviewByUid) {
 		this.sellerreviewByUid = sellerreviewByUid;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUid_1")
-	public Set getSellerreviewsForUid() {
+	public Set<SellerReview> getSellerreviewsForUid() {
 		return this.sellerreviewsForUid;
 	}
 
-	public void setSellerreviewsForUid(Set sellerreviewsForUid) {
+	public void setSellerreviewsForUid(Set<SellerReview> sellerreviewsForUid) {
 		this.sellerreviewsForUid = sellerreviewsForUid;
 	}
 

@@ -30,9 +30,9 @@ public class Inventory implements java.io.Serializable {
 	private String description;
 	private float price;
 	private String location;
-	private Set transactions = new HashSet(0);
-	private Set carts = new HashSet(0);
-	private Set inventoryimages = new HashSet(0);
+	private Set<Transaction> transactions = new HashSet<Transaction>(0);
+	private Set<Cart> carts = new HashSet<Cart>(0);
+	private Set<InventoryImage> inventoryimages = new HashSet<InventoryImage>(0);
 
 	public Inventory() {
 	}
@@ -49,7 +49,7 @@ public class Inventory implements java.io.Serializable {
 		this.location = location;
 	}
 
-	public Inventory(Category category, User user, String name, int totalQuantity, int remainingQuantity,
+	/*public Inventory(Category category, User user, String name, int totalQuantity, int remainingQuantity,
 			String description, float price, String location, Set transactions, Set carts, Set inventoryimages) {
 		this.category = category;
 		this.user = user;
@@ -63,7 +63,7 @@ public class Inventory implements java.io.Serializable {
 		this.carts = carts;
 		this.inventoryimages = inventoryimages;
 	}
-
+*/
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
@@ -151,29 +151,29 @@ public class Inventory implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "inventory")
-	public Set getTransactions() {
+	public Set<Transaction> getTransactions() {
 		return this.transactions;
 	}
 
-	public void setTransactions(Set transactions) {
+	public void setTransactions(Set<Transaction> transactions) {
 		this.transactions = transactions;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "inventory")
-	public Set getCarts() {
+	public Set<Cart> getCarts() {
 		return this.carts;
 	}
 
-	public void setCarts(Set carts) {
+	public void setCarts(Set<Cart> carts) {
 		this.carts = carts;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "inventory")
-	public Set getInventoryimages() {
+	public Set<InventoryImage> getInventoryimages() {
 		return this.inventoryimages;
 	}
 
-	public void setInventoryimages(Set inventoryimages) {
+	public void setInventoryimages(Set<InventoryImage> inventoryimages) {
 		this.inventoryimages = inventoryimages;
 	}
 

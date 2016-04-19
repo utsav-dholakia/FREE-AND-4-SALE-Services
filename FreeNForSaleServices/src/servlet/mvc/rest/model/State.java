@@ -22,7 +22,7 @@ public class State implements java.io.Serializable {
 	private Integer stateId;
 	private String name;
 	private String fullName;
-	private Set users = new HashSet(0);
+	private Set<User> users = new HashSet<User>(0);
 
 	public State() {
 	}
@@ -32,7 +32,7 @@ public class State implements java.io.Serializable {
 		this.fullName = fullName;
 	}
 
-	public State(String name, String fullName, Set users) {
+	public State(String name, String fullName, Set<User> users) {
 		this.name = name;
 		this.fullName = fullName;
 		this.users = users;
@@ -69,11 +69,11 @@ public class State implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
-	public Set getUsers() {
+	public Set<User> getUsers() {
 		return this.users;
 	}
 
-	public void setUsers(Set users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 

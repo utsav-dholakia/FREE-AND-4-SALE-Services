@@ -17,10 +17,18 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "UserLoginInfo", catalog = "FreeNForSale", uniqueConstraints = @UniqueConstraint(columnNames = "UserName"))
 public class UserLoginInfo implements java.io.Serializable {
-
-	private Integer uid;
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "UId", unique = true, nullable = false)
+	private int uid;
+	
+	@Column(name = "UserName", unique = true, nullable = false, length = 25)
 	private String userName;
+	
+	@Column(name = "Password", nullable = false, length = 15)
 	private String password;
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userlogininfo")
 	private User user;
 
 	public UserLoginInfo() {
@@ -37,19 +45,16 @@ public class UserLoginInfo implements java.io.Serializable {
 		this.user = user;
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-
-	@Column(name = "UId", unique = true, nullable = false)
-	public Integer getUid() {
+	
+	public int getUid() {
 		return this.uid;
 	}
 
-	public void setUid(Integer uid) {
+	public void setUid(int uid) {
 		this.uid = uid;
 	}
 
-	@Column(name = "UserName", unique = true, nullable = false, length = 25)
+
 	public String getUserName() {
 		return this.userName;
 	}
@@ -58,7 +63,7 @@ public class UserLoginInfo implements java.io.Serializable {
 		this.userName = userName;
 	}
 
-	@Column(name = "Password", nullable = false, length = 15)
+
 	public String getPassword() {
 		return this.password;
 	}
@@ -67,7 +72,7 @@ public class UserLoginInfo implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userlogininfo")
+	
 	public User getUser() {
 		return this.user;
 	}
