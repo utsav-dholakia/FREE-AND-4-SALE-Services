@@ -89,7 +89,7 @@ CREATE TABLE Transaction(
 
 CREATE TABLE SellerReview(
 	SellerId INT PRIMARY KEY,
-	Rating INT NOT NULL,
+	Rating INT,
 	Comment VARCHAR(150),
 	UId INT NOT NULL
 );
