@@ -88,10 +88,11 @@ CREATE TABLE Transaction(
 );
 
 CREATE TABLE SellerReview(
-	SellerId INT PRIMARY KEY,
+	SellerId INT,
 	Rating INT,
 	Comment VARCHAR(150),
 	UId INT NOT NULL
+	PRIMARY KEY (SellerId, UId)
 );
 
 ALTER TABLE User ADD FOREIGN KEY (UId) REFERENCES UserLoginInfo(UId);
