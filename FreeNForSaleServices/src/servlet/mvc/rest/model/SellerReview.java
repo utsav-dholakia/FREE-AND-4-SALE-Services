@@ -21,10 +21,25 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "SellerReview", catalog = "FreeNForSale")
 public class SellerReview implements java.io.Serializable {
 
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userByUid"))
+	@Id
+	@GeneratedValue(generator = "generator")
+
+	@Column(name = "SellerId", unique = true, nullable = false)
 	private int sellerId;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
 	private User userByUid;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "UId", nullable = false)
 	private User userByUid_1;
+
+	@Column(name = "Rating", nullable = false)
 	private int rating;
+
+	@Column(name = "Comment", length = 150)
 	private String comment;
 
 	public SellerReview() {
@@ -43,11 +58,6 @@ public class SellerReview implements java.io.Serializable {
 		this.comment = comment;
 	}
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userByUid"))
-	@Id
-	@GeneratedValue(generator = "generator")
-
-	@Column(name = "SellerId", unique = true, nullable = false)
 	public int getSellerId() {
 		return this.sellerId;
 	}
@@ -56,8 +66,6 @@ public class SellerReview implements java.io.Serializable {
 		this.sellerId = sellerId;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
 	public User getUserByUid() {
 		return this.userByUid;
 	}
@@ -66,8 +74,6 @@ public class SellerReview implements java.io.Serializable {
 		this.userByUid = userByUid;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UId", nullable = false)
 	public User getUserByUid_1() {
 		return this.userByUid_1;
 	}
@@ -76,7 +82,6 @@ public class SellerReview implements java.io.Serializable {
 		this.userByUid_1 = userByUid_1;
 	}
 
-	@Column(name = "Rating", nullable = false)
 	public int getRating() {
 		return this.rating;
 	}
@@ -85,7 +90,6 @@ public class SellerReview implements java.io.Serializable {
 		this.rating = rating;
 	}
 
-	@Column(name = "Comment", length = 150)
 	public String getComment() {
 		return this.comment;
 	}

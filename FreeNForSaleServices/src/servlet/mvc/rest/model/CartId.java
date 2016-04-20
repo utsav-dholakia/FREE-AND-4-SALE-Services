@@ -11,8 +11,13 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class CartId implements java.io.Serializable {
 
+	@Column(name = "CartId", nullable = false)
 	private int cartId;
+
+	@Column(name = "UId", nullable = false)
 	private int uid;
+
+	@Column(name = "ItemId", nullable = false)
 	private int itemId;
 
 	public CartId() {
@@ -24,7 +29,6 @@ public class CartId implements java.io.Serializable {
 		this.itemId = itemId;
 	}
 
-	@Column(name = "CartId", nullable = false)
 	public int getCartId() {
 		return this.cartId;
 	}
@@ -33,7 +37,6 @@ public class CartId implements java.io.Serializable {
 		this.cartId = cartId;
 	}
 
-	@Column(name = "UId", nullable = false)
 	public int getUid() {
 		return this.uid;
 	}
@@ -42,7 +45,6 @@ public class CartId implements java.io.Serializable {
 		this.uid = uid;
 	}
 
-	@Column(name = "ItemId", nullable = false)
 	public int getItemId() {
 		return this.itemId;
 	}
