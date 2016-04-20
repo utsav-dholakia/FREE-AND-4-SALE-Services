@@ -34,8 +34,8 @@ public class LoginServices {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
 	public Response isValidUser(LoginBean bean, @HeaderParam("secretKey")String key) throws URISyntaxException {
-        URI tempRedirect=new URI("https://localhost:8843/Error.html");
-		if(key.equals(secretKey))
+        URI tempRedirect=new URI("../error.html");
+		if(key!=null && key.equals(secretKey))
 		{
 			String response = "";
 			try{
@@ -55,8 +55,8 @@ public class LoginServices {
 		}
 		else
 		{
-			Response.status(400);
-			return Response.temporaryRedirect(tempRedirect).build();
+			System.out.println("redirecting");
+			return Response.seeOther(tempRedirect).build();
 		}
 		
 	}
@@ -67,7 +67,7 @@ public class LoginServices {
 		try{ 
 		int empId = Integer.parseInt(username);
 	        //logger.info("Request Param empId="+empId);
-		 	
+		 	System.out.println("in");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
