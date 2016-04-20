@@ -11,7 +11,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class FinanceId implements java.io.Serializable {
 
+	@Column(name = "UId", nullable = false)
 	private int uid;
+
+	@Column(name = "CardNo", nullable = false, length = 16)
 	private String cardNo;
 
 	public FinanceId() {
@@ -22,7 +25,6 @@ public class FinanceId implements java.io.Serializable {
 		this.cardNo = cardNo;
 	}
 
-	@Column(name = "UId", nullable = false)
 	public int getUid() {
 		return this.uid;
 	}
@@ -31,7 +33,6 @@ public class FinanceId implements java.io.Serializable {
 		this.uid = uid;
 	}
 
-	@Column(name = "CardNo", nullable = false, length = 16)
 	public String getCardNo() {
 		return this.cardNo;
 	}

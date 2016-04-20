@@ -11,7 +11,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class InventoryimageId implements java.io.Serializable {
 
+	@Column(name = "ItemId", nullable = false)
 	private int itemId;
+
+	@Column(name = "ImageId", nullable = false)
 	private int imageId;
 
 	public InventoryimageId() {
@@ -22,7 +25,6 @@ public class InventoryimageId implements java.io.Serializable {
 		this.imageId = imageId;
 	}
 
-	@Column(name = "ItemId", nullable = false)
 	public int getItemId() {
 		return this.itemId;
 	}
@@ -31,7 +33,6 @@ public class InventoryimageId implements java.io.Serializable {
 		this.itemId = itemId;
 	}
 
-	@Column(name = "ImageId", nullable = false)
 	public int getImageId() {
 		return this.imageId;
 	}

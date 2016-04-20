@@ -13,7 +13,7 @@ CREATE TABLE User (
 	UId INT PRIMARY KEY,
 	Name VARCHAR(30) NOT NULL,
 	Bdate DATE,
-	Phone INT NOT NULL,
+	Phone VARCHAR(12) NOT NULL,
 	Email VARCHAR(30) NOT NULL,
 	Street VARCHAR(25),
 	City VARCHAR(15),
@@ -88,10 +88,11 @@ CREATE TABLE Transaction(
 );
 
 CREATE TABLE SellerReview(
-	SellerId INT PRIMARY KEY,
-	Rating INT NOT NULL,
+	SellerId INT,
+	Rating INT,
 	Comment VARCHAR(150),
 	UId INT NOT NULL
+	PRIMARY KEY (SellerId, UId)
 );
 
 ALTER TABLE User ADD FOREIGN KEY (UId) REFERENCES UserLoginInfo(UId);
