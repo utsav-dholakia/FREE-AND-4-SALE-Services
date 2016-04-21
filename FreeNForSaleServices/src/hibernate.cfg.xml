@@ -3,28 +3,31 @@
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.connection.datasource">java:comp/env/jdbc/MyLocalDB</property>
-        <property name="hibernate.current_session_context_class">thread</property>
-         
-      <property name="show_sql">true</property>
-<property name="format_sql">true</property>
-<property name="use_sql_comments">true</property>
-         
-         
-        <!-- Mapping with model class containing annotations -->
-        <mapping class="servlet.mvc.rest.model.Category"/>
-        <mapping class="servlet.mvc.rest.model.UserLoginInfo"/>
-        <mapping class="servlet.mvc.rest.model.User"/>
-        <mapping class="servlet.mvc.rest.model.Cart"/>
-        <mapping class="servlet.mvc.rest.model.Finance"/>
-        <mapping class="servlet.mvc.rest.model.Inventory"/>
-        <mapping class="servlet.mvc.rest.model.InventoryImage"/>
-        <mapping class="servlet.mvc.rest.model.SellerReview"/>
-        <mapping class="servlet.mvc.rest.model.State"/>
-        <mapping class="servlet.mvc.rest.model.Transaction"/>
-        
-    </session-factory>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.connection.datasource">java:comp/env/jdbc/MyLocalDB</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+		<property name="use_sql_comments">true</property>
+		<!-- <property name="hibernate.cache.region.factory_class">com.googlecode.hibernate.memcached.MemcachedCacheProvider</property>
+		<property name="hibernate.memcached.servers">localhost:11211</property>
+		<property name="hibernate.memcached.cacheTimeSeconds">30000</property>
+		<property name="hibernate.cache.use_query_cache">true</property> -->
+
+		<!-- Mapping with model class containing annotations -->
+		<mapping class="servlet.mvc.rest.model.Category" />
+		<mapping class="servlet.mvc.rest.model.UserLoginInfo" />
+		<mapping class="servlet.mvc.rest.model.User" />
+		<mapping class="servlet.mvc.rest.model.Cart" />
+		<mapping class="servlet.mvc.rest.model.Finance" />
+		<mapping class="servlet.mvc.rest.model.Inventory" />
+		<mapping class="servlet.mvc.rest.model.InventoryImage" />
+		<mapping class="servlet.mvc.rest.model.SellerReview" />
+		<mapping class="servlet.mvc.rest.model.State" />
+		<mapping class="servlet.mvc.rest.model.Transaction" />
+
+	</session-factory>
 </hibernate-configuration>

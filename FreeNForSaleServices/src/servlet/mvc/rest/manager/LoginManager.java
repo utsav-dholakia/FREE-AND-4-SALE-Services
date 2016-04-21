@@ -1,5 +1,6 @@
 package servlet.mvc.rest.manager;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -7,6 +8,7 @@ import org.hibernate.HibernateException;
 import servlet.mvc.rest.beans.LoginBean;
 import servlet.mvc.rest.dao.LoginDao;
 import servlet.mvc.rest.model.UserLoginInfo;
+import servlet.mvc.rest.utility.MemCacheUtil;
 
 public class LoginManager {
 	static LoginDao dao =  new LoginDao();
@@ -20,26 +22,33 @@ public class LoginManager {
 	public String validateUser(LoginBean bean)throws HibernateException  {
 		// TODO Auto-generated method stub
 		List <UserLoginInfo> userLoginInfoList = dao.getUserName(bean);
-		
+		String uId="";
 		if(!userLoginInfoList.isEmpty() && userLoginInfoList.size() > 0)
 		{
 			UserLoginInfo userLoginInfo =userLoginInfoList.get(0);
 			System.out.println(((Integer)userLoginInfo.getUid()).toString());
 			if(userLoginInfo.getPassword().equals(bean.getPassword())){	
-				dao.updateLoginTime(userLoginInfo.getUid());
-			return ((Integer)userLoginInfo.getUid()).toString();
+				Date curDate=new Date();
+				dao.updateLoginTime(userLoginInfo.getUid(),curDate);
+				userLoginInfoList.get(0).getUser().setLastLoginTime(curDate);
+				
+			uId= ((Integer)userLoginInfo.getUid()).toString();
 			}else
 			{
-				dao.updateFailedLogin(userLoginInfo.getUid(),userLoginInfo.getUser().getFailedAttempts()+1);
+				int attmpts= userLoginInfo.getUser().getFailedAttempts()+1;
+				dao.updateFailedLogin(userLoginInfo.getUid(),attmpts);
+				userLoginInfoList.get(0).getUser().setFailedAttempts(attmpts);
 				System.out.println("empty");
-				return "-1";
+				uId= "-1";
 			}
+			MemCacheUtil.getMemCachedClient().replace(bean.getName(),0, userLoginInfoList);
 		}
 		else
 		{
 			System.out.println("empty");
-			return "-1";
+			uId= "-1";
 		}
+		return uId;
 	}
 
 }

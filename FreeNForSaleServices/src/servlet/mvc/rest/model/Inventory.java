@@ -21,13 +21,18 @@ import javax.persistence.Table;
 @Table(name = "Inventory", catalog = "FreeNForSale")
 public class Inventory implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3684866718203505294L;
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "ItemId", unique = true, nullable = false)
 	private Integer itemId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CategoryId", nullable = false)
 	private Category category;
 
@@ -59,7 +64,7 @@ public class Inventory implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "inventory")
 	private Set<Cart> carts = new HashSet<Cart>(0);
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "inventory")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "inventory")
 	private Set<InventoryImage> inventoryimages = new HashSet<InventoryImage>(0);
 
 	public Inventory() {
