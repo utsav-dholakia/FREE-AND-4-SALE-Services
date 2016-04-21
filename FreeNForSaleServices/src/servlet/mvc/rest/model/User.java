@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -55,7 +57,7 @@ public class User implements java.io.Serializable {
 	private Date bdate;
 	
 	@Column(name = "Phone", nullable = false)
-	private int phone;
+	private String phone;
 	
 	@Column(name = "Email", nullable = false, length = 30)
 	private String email;
@@ -106,7 +108,7 @@ public class User implements java.io.Serializable {
 	public User() {
 	}
 
-	public User(UserLoginInfo userlogininfo, String name, int phone, String email, Date lastLoginTime,
+	public User(UserLoginInfo userlogininfo, String name, String phone, String email, Date lastLoginTime,
 			int failedAttempts) {
 		this.userlogininfo = userlogininfo;
 		this.name = name;
@@ -158,11 +160,11 @@ public class User implements java.io.Serializable {
 		this.bdate = bdate;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return this.phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 

@@ -36,8 +36,8 @@ public class SellerReview implements java.io.Serializable {
 	@JoinColumn(name = "UId", nullable = false)
 	private User userByUid_1;
 
-	@Column(name = "Rating", nullable = false)
-	private int rating;
+	@Column(name = "Rating")
+	private Integer rating;
 
 	@Column(name = "Comment", length = 150)
 	private String comment;
@@ -82,11 +82,11 @@ public class SellerReview implements java.io.Serializable {
 		this.userByUid_1 = userByUid_1;
 	}
 
-	public int getRating() {
+	public Integer getRating() {
 		return this.rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
 

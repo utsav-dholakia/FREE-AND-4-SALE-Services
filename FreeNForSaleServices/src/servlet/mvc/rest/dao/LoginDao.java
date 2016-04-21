@@ -8,10 +8,13 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import net.spy.memcached.MemcachedClient;
 import servlet.mvc.rest.beans.LoginBean;
 import servlet.mvc.rest.model.User;
 import servlet.mvc.rest.model.UserLoginInfo;
 import servlet.mvc.rest.utility.HibernateUtil;
+import servlet.mvc.rest.utility.MemCacheUtil;
+import servlet.mvc.rest.utility.Properties;
 
 public class LoginDao {
 
@@ -21,24 +24,34 @@ public class LoginDao {
 	 * @return
 	 * @throws HibernateException
 	 */
+	@SuppressWarnings("unchecked")
 	public List<UserLoginInfo> getUserName(LoginBean bean) throws HibernateException {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction	tx=session.beginTransaction();
+	
+		if(MemCacheUtil.getMemCachedClient().get(bean.getName())!=null){
+			System.out.println(Properties.cacheHit);
+			return (List<UserLoginInfo>) MemCacheUtil.getMemCachedClient().get(bean.getName());
+		}else{
+			System.out.println(Properties.cacheMiss);
+
+		Transaction	tx=HibernateUtil.getSession().beginTransaction();
 		
 		String queryStr = "SELECT * FROM UserLoginInfo WHERE UserName = :userName";
-		SQLQuery query = session.createSQLQuery(queryStr);
+		SQLQuery query = HibernateUtil.getSession().createSQLQuery(queryStr);
 		query.addEntity(UserLoginInfo.class);
 		query.setParameter("userName", bean.getName());
 		//query.setParameter("password", bean.getPassword());
 		List <UserLoginInfo> userLoginInfo = query.list(); 
 		//UserLoginInfo userLoginInfo = (UserLoginInfo) session.get(UserLoginInfo.class, bean.getName());
-		session.getTransaction().commit();
+		HibernateUtil.getSession().getTransaction().commit();
 		//if (tx!=null) tx.rollback();     
-	        session.close(); 
+//		HibernateUtil.getSession().close(); 
 		System.out.println("query success");
+		
+		MemCacheUtil.getMemCachedClient().add(bean.getName(), 0, userLoginInfo);
 		return userLoginInfo;
 		// TODO Auto-generated method stub
 		
+		}
 	}
 
 	/**
@@ -46,15 +59,14 @@ public class LoginDao {
 	 * @param uid
 	 * @throws HibernateException
 	 */
-	public void updateLoginTime(int uid) throws HibernateException  {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-	    Transaction	tx=session.beginTransaction();
-        User user= (User)session.get(User.class, uid); 
-        user.setLastLoginTime(new Date());
-		session.update(user); 
+	public void updateLoginTime(int uid, Date d) throws HibernateException  {
+	    Transaction	tx=HibernateUtil.getSession().beginTransaction();
+        User user= (User)HibernateUtil.getSession().get(User.class, uid); 
+        user.setLastLoginTime(d);
+        HibernateUtil.getSession().update(user); 
         tx.commit();
     //    if (tx!=null) tx.rollback();     
-        session.close(); 
+     //   HibernateUtil.getSession().close(); 
 	}
 
 	/**
@@ -64,14 +76,14 @@ public class LoginDao {
 	 * @throws HibernateException
 	 */
 	public void updateFailedLogin(int uid, int i) throws HibernateException  {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction	tx=session.beginTransaction();
-        User user= (User)session.get(User.class, uid); 
+		//Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction	tx=HibernateUtil.getSession().beginTransaction();
+        User user= (User)HibernateUtil.getSession().get(User.class, uid); 
         user.setFailedAttempts(i);;
-		session.update(user); 
+        HibernateUtil.getSession().update(user); 
         tx.commit();
       //  if (tx!=null) tx.rollback();     
-        session.close(); 
+      //  HibernateUtil.getSession().close(); 
 	}
 	
 }

@@ -1,18 +1,20 @@
 package servlet.mvc.rest.utility;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
-	private static final SessionFactory sessionFactory = buildSessionFactory();
+	private static final Session session= buildSessionFactory();
 
 	@SuppressWarnings("deprecation")
-	private static SessionFactory buildSessionFactory() {
+	private static Session buildSessionFactory() {
 		try {
 			System.out.println("Initialised");
 			// Create the SessionFactory from hibernate.cfg.xml
-			return new Configuration().configure().buildSessionFactory();
+			
+			return new Configuration().configure().buildSessionFactory().openSession();
 			
 		} catch (Throwable ex) {
 			// Make sure you log the exception, as it might be swallowed
@@ -21,13 +23,13 @@ public class HibernateUtil {
 		}
 	}
 
-	public static SessionFactory getSessionFactory() {
-		return sessionFactory;
+	public static Session getSession() {
+		return session;
 	}
 
 	public static void shutdown() {
 		// Close caches and connection pools
-		getSessionFactory().close();
+		getSession().close();
 	}
 
 }
