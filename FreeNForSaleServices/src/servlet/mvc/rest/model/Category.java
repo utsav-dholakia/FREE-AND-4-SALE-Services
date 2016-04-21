@@ -3,10 +3,15 @@ package servlet.mvc.rest.model;// default package
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,9 +21,16 @@ import javax.persistence.Table;
 @Table(name = "Category", catalog = "FreeNForSale")
 public class Category implements java.io.Serializable {
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+
+	@Column(name = "CategoryId", unique = true, nullable = false)
 	private int categoryId;
+
+	@Column(name = "Name", length = 50)
 	private String name;
-	//private Set inventories = new HashSet(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")	
+	private Set<Inventory> inventories = new HashSet<Inventory>(0);
 
 	public Category() {
 	}
@@ -28,10 +40,6 @@ public class Category implements java.io.Serializable {
 		//this.inventories = inventories;
 	}*/
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-
-	@Column(name = "CategoryId", unique = true, nullable = false)
 	public int getCategoryId() {
 		return this.categoryId;
 	}
@@ -40,7 +48,6 @@ public class Category implements java.io.Serializable {
 		this.categoryId = categoryId;
 	}
 
-	@Column(name = "Name", length = 50)
 	public String getName() {
 		return this.name;
 	}
@@ -49,13 +56,12 @@ public class Category implements java.io.Serializable {
 		this.name = name;
 	}
 
-/*	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
-	public Set getInventories() {
+	public Set<Inventory> getInventories() {
 		return this.inventories;
 	}
 
-	public void setInventories(Set inventories) {
+	public void setInventories(Set<Inventory> inventories) {
 		this.inventories = inventories;
-	}*/
+	}
 
 }

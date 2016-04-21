@@ -18,9 +18,20 @@ import javax.persistence.Table;
 @Table(name = "InventoryImage", catalog = "FreeNForSale")
 public class InventoryImage implements java.io.Serializable {
 
+	@EmbeddedId
+
+	@AttributeOverrides({ @AttributeOverride(name = "ItemId", column = @Column(name = "ItemId", nullable = false)),
+			@AttributeOverride(name = "ImageId", column = @Column(name = "ImageId", nullable = false)) })
 	private InventoryimageId id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ItemId", nullable = false, insertable = false, updatable = false)
 	private Inventory inventory;
+
+	@Column(name = "Image", nullable = false, length = 100)
 	private String image;
+
+	@Column(name = "Rank", nullable = false)
 	private boolean rank;
 
 	public InventoryImage() {
@@ -33,10 +44,6 @@ public class InventoryImage implements java.io.Serializable {
 		this.rank = rank;
 	}
 
-	@EmbeddedId
-
-	@AttributeOverrides({ @AttributeOverride(name = "itemId", column = @Column(name = "ItemId", nullable = false)),
-			@AttributeOverride(name = "imageId", column = @Column(name = "ImageId", nullable = false)) })
 	public InventoryimageId getId() {
 		return this.id;
 	}
@@ -45,8 +52,6 @@ public class InventoryImage implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ItemId", nullable = false, insertable = false, updatable = false)
 	public Inventory getInventory() {
 		return this.inventory;
 	}
@@ -55,7 +60,6 @@ public class InventoryImage implements java.io.Serializable {
 		this.inventory = inventory;
 	}
 
-	@Column(name = "Image", nullable = false, length = 100)
 	public String getImage() {
 		return this.image;
 	}
@@ -64,7 +68,6 @@ public class InventoryImage implements java.io.Serializable {
 		this.image = image;
 	}
 
-	@Column(name = "Rank", nullable = false)
 	public boolean isRank() {
 		return this.rank;
 	}

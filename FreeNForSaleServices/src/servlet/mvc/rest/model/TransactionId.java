@@ -11,8 +11,13 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class TransactionId implements java.io.Serializable {
 
+	@Column(name = "TId", nullable = false)
 	private int tid;
+
+	@Column(name = "UId", nullable = false)
 	private int uid;
+
+	@Column(name = "ItemId", nullable = false)
 	private int itemId;
 
 	public TransactionId() {
@@ -24,7 +29,6 @@ public class TransactionId implements java.io.Serializable {
 		this.itemId = itemId;
 	}
 
-	@Column(name = "TId", nullable = false)
 	public int getTid() {
 		return this.tid;
 	}
@@ -33,7 +37,6 @@ public class TransactionId implements java.io.Serializable {
 		this.tid = tid;
 	}
 
-	@Column(name = "UId", nullable = false)
 	public int getUid() {
 		return this.uid;
 	}
@@ -42,7 +45,6 @@ public class TransactionId implements java.io.Serializable {
 		this.uid = uid;
 	}
 
-	@Column(name = "ItemId", nullable = false)
 	public int getItemId() {
 		return this.itemId;
 	}
