@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import servlet.mvc.rest.beans.InventoryBean;
+import servlet.mvc.rest.beans.ItemDetailBean;
 import servlet.mvc.rest.dao.InventoryDao;
 import servlet.mvc.rest.model.Inventory;
 import servlet.mvc.rest.model.InventoryImage;
@@ -69,6 +70,36 @@ public class InventoryManager {
 		}
 		return inventoryList;
 		
+	}
+
+
+	public ItemDetailBean fetchMoreDetails(int itemId) {
+		List <Inventory> inventories =dao.getMoreDetails(itemId);
+   	 	ItemDetailBean itemDetailBean= new ItemDetailBean();
+
+        if(inventories!=null & inventories.get(0)!=null){
+             Inventory i= inventories.get(0);
+             itemDetailBean.setCategoryId(i.getCategory().getCategoryId());
+             itemDetailBean.setCategoryName(i.getCategory().getName());
+             if(i.getDescription()!=null && !i.getDescription().isEmpty())
+             itemDetailBean.setDescription(i.getDescription());
+             if(i.getInventoryimages()!=null)
+             itemDetailBean.setInventoryimages(i.getInventoryimages());
+             itemDetailBean.setInventoryName(i.getName());
+             itemDetailBean.setItemId(itemId);
+             if(i.getLocation()!=null && !i.getLocation().isEmpty())
+             itemDetailBean.setLocation(i.getLocation());
+             for(InventoryImage ii: i.getInventoryimages()){
+ 				if(ii.isRank()){
+ 					itemDetailBean.setMainImage(ii.getImage());
+ 				}
+ 			 }
+             itemDetailBean.setPrice(String.valueOf(i.getPrice()));
+             itemDetailBean.setRemainingQuantity(i.getRemainingQuantity());
+             itemDetailBean.setSellerName(i.getUser().getName());
+        }
+           
+            return itemDetailBean;
 	}
 
 }

@@ -6,4 +6,5 @@ public class Properties {
 	public static String cacheMiss="<---------Cache Miss--------->";
 	public static String Inventorykey="inventoryforHome";
 	public static String category="category";
+	public static String item="item";
 }
