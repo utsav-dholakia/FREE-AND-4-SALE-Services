@@ -34,6 +34,39 @@ public class User implements java.io.Serializable {
 	/**
 	 * 
 	 */
+	public int getUid() {
+		return this.uid;
+	}
+	
+	public User(State state, UserLoginInfo userlogininfo, String name, Date bdate, String phone, String email,
+			String street, String city, Integer zipcode, String sex, Long ssn, Date lastLoginTime, int failedAttempts) {
+		super();
+		this.state = state;
+		this.name = name;
+		this.bdate = bdate;
+		this.phone = phone;
+		this.email = email;
+		this.street = street;
+		this.city = city;
+		this.zipcode = zipcode;
+		this.sex = sex;
+		this.ssn = ssn;
+		this.lastLoginTime = lastLoginTime;
+		this.failedAttempts = failedAttempts;
+		this.userlogininfo = userlogininfo;
+	}
+	
+	public User(UserLoginInfo userlogininfo, String name, String phone, String email, Date lastLoginTime,
+			int failedAttempts) {
+		this.userlogininfo = userlogininfo;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.lastLoginTime = lastLoginTime;
+		this.failedAttempts = failedAttempts;
+	}
+
+	
 	private static final long serialVersionUID = 166975415335427611L;
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userlogininfo"))
 	@Id
@@ -108,19 +141,7 @@ public class User implements java.io.Serializable {
 	public User() {
 	}
 
-	public User(UserLoginInfo userlogininfo, String name, String phone, String email, Date lastLoginTime,
-			int failedAttempts) {
-		this.userlogininfo = userlogininfo;
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.lastLoginTime = lastLoginTime;
-		this.failedAttempts = failedAttempts;
-	}
-
-	public int getUid() {
-		return this.uid;
-	}
+	
 
 	public void setUid(int uid) {
 		this.uid = uid;
