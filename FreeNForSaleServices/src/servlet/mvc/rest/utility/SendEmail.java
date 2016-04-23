@@ -11,7 +11,7 @@ import java.util.Properties;
 public class SendEmail {
  
  final String senderEmail = "spexysam@gmail.com";
- final String senderPassword = "28773490";
+ final String senderPassword = "";
  final String emailSMTPserver = "smtp.gmail.com";
  final String emailServerPort = "587";
  String receiverEmail = null;
