@@ -109,4 +109,23 @@ public class InventoryDao {
 			return inventories;
 		}
 	}
+
+	public List<Inventory> getInventoryByName(String inventoryName) {
+		
+			Transaction tx = HibernateUtil.getSession().beginTransaction();
+
+			String queryStr = "SELECT * FROM Inventory where name like :iName";
+			SQLQuery query = HibernateUtil.getSession().createSQLQuery(queryStr);
+			query.addEntity(Inventory.class);
+			String iName= "%"+inventoryName+"%";
+			query.setParameter("iName", iName);
+
+			// query.setParameter("password", bean.getPassword());
+			List<Inventory> inventories = query.list();
+			HibernateUtil.getSession().getTransaction().commit();
+			System.out.println("query success");
+
+			return inventories;
+	
+	}
 }

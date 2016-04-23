@@ -4,7 +4,7 @@ public class InventoryBean {
 	private int itemId;
 	private int categoryId;
 	private String categoryName;
-	private String InventoryName;
+	private String itemName;
 	private String price;
 	private int remainingQuantity;
 	private String mainImage;
@@ -35,10 +35,10 @@ public class InventoryBean {
 		this.categoryName = categoryName;
 	}
 	public String getInventoryName() {
-		return InventoryName;
+		return itemName;
 	}
 	public void setInventoryName(String inventoryName) {
-		InventoryName = inventoryName;
+		itemName = inventoryName;
 	}
 	public String getPrice() {
 		return price;

@@ -12,12 +12,13 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import servlet.mvc.rest.beans.IDclass;
 import servlet.mvc.rest.beans.InventoryBean;
 import servlet.mvc.rest.beans.ItemDetailBean;
+import servlet.mvc.rest.beans.LoginBean;
 import servlet.mvc.rest.manager.InventoryManager;
  
 @Path("/InventoryServices")
@@ -48,6 +49,7 @@ public class InventoryServices {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
+			//GenericEntity<Map<Integer,ArrayList<InventoryBean>>> generic = new GenericEntity <Map<Integer,ArrayList<InventoryBean>>>(inventoryMap){};
 			return Response.ok().entity(inventoryMap).build();			
 
 		}
@@ -60,7 +62,7 @@ public class InventoryServices {
 	}
 	
 	/**
-	 * Inventory For home Page.
+	 * fetch inventory by category.
 	 * @param bean
 	 * @param key
 	 * @return
@@ -74,14 +76,14 @@ public class InventoryServices {
         URI tempRedirect=new URI("../error.html");
 		if(key!=null && key.equals(secretKey))
 		{
-			ArrayList<InventoryBean> inventoryMap= new ArrayList<InventoryBean>();
+			ArrayList<InventoryBean> inventoryList= new ArrayList<InventoryBean>();
 			try{
 				
-				inventoryMap=manager.fetchInventoryByCategory(bean.getCategoryId());
+				inventoryList=manager.fetchInventoryByCategory(bean.getCategoryId());
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			return Response.ok().entity(inventoryMap).build();			
+			return Response.ok().entity(inventoryList).build();			
 
 		}
 		else
@@ -93,7 +95,7 @@ public class InventoryServices {
 	}
 	
 	/**
-	 * Inventory For home Page.
+	 * fetch more details of an item.
 	 * @param bean
 	 * @param key
 	 * @return
@@ -125,4 +127,36 @@ public class InventoryServices {
 		
 	}
 	
+	/**
+	 * Search Inventory by name .
+	 * @param bean
+	 * @param key
+	 * @return
+	 * @throws URISyntaxException 
+	 */
+	@Path("/SearchInventory")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public Response SearchInventory(LoginBean bean,@HeaderParam("secretKey")String key) throws URISyntaxException {
+        URI tempRedirect=new URI("../error.html");
+		if(key!=null && key.equals(secretKey))
+		{
+			ArrayList<InventoryBean> inventoryList= new ArrayList<InventoryBean>();
+			try{
+				
+				inventoryList=manager.searchInventory(bean.getName());
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return Response.ok().entity(inventoryList).build();			
+
+		}
+		else
+		{
+			System.out.println("redirecting");
+			return Response.seeOther(tempRedirect).build();
+		}
+		
+	}
 }

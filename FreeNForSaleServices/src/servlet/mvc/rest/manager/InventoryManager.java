@@ -50,6 +50,11 @@ public class InventoryManager {
 	}
 
 
+	/**
+	 * Saves the mdel bean for inventory to json.
+	 * @param id
+	 * @return
+	 */
 	public ArrayList<InventoryBean> fetchInventoryByCategory(int id) {
 		List <Inventory> inventories = dao.getInventoryByCat(id);
 		ArrayList<InventoryBean> inventoryList = new ArrayList<InventoryBean>();
@@ -100,6 +105,28 @@ public class InventoryManager {
         }
            
             return itemDetailBean;
+	}
+
+
+	public ArrayList<InventoryBean> searchInventory(String inventoryName) {
+		List <Inventory> inventories = dao.getInventoryByName(inventoryName);
+		ArrayList<InventoryBean> inventoryList = new ArrayList<InventoryBean>();
+		for(Inventory i:inventories){
+			InventoryBean ib= new InventoryBean();
+			ib.setCategoryId(i.getCategory().getCategoryId());
+			ib.setCategoryName(i.getCategory().getName());
+			ib.setInventoryName(i.getName());
+			ib.setItemId(i.getItemId());
+			ib.setPrice(String.valueOf(i.getPrice()));
+			ib.setRemainingQuantity(i.getRemainingQuantity());
+			for(InventoryImage ii: i.getInventoryimages()){
+				if(ii.isRank()){
+					ib.setMainImage(ii.getImage());
+				}
+			}
+			inventoryList.add(ib);
+		}
+		return inventoryList;
 	}
 
 }
