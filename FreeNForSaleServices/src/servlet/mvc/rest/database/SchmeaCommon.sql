@@ -91,8 +91,13 @@ CREATE TABLE SellerReview(
 	SellerId INT,
 	Rating INT,
 	Comment VARCHAR(150),
-	UId INT NOT NULL
-	PRIMARY KEY (SellerId, UId)
+	UId INT NOT NULL,
+	PRIMARY KEY(SellerId, UId)
+);
+
+CREATE TABLE SellerInfo (
+	SellerId INT PRIMARY KEY,
+	OverallRating float
 );
 
 ALTER TABLE User ADD FOREIGN KEY (UId) REFERENCES UserLoginInfo(UId);
@@ -107,10 +112,4 @@ ALTER TABLE Transaction ADD FOREIGN KEY (UId) REFERENCES User(UId);
 ALTER TABLE Transaction ADD FOREIGN KEY (ItemId) REFERENCES Inventory(ItemId);
 ALTER TABLE SellerReview ADD FOREIGN KEY (SellerId) REFERENCES User(UId);
 ALTER TABLE SellerReview ADD FOREIGN KEY (UId) REFERENCES User(UId);
-
-CREATE TABLE SellerInfo (
-	SellerId INT PRIMARY KEY,
-	OverallRating float
-);
-
 ALTER TABLE SellerInfo ADD FOREIGN KEY (SellerId) REFERENCES User(UId);

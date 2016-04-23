@@ -36,7 +36,7 @@ public class Inventory implements java.io.Serializable {
 	@JoinColumn(name = "CategoryId", nullable = false)
 	private Category category;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SellerId", nullable = false)
 	private User user;
 

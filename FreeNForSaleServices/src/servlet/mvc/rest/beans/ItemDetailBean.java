@@ -1,13 +1,21 @@
 package servlet.mvc.rest.beans;
 
-public class InventoryBean {
+import java.util.Set;
+
+import servlet.mvc.rest.model.InventoryImage;
+
+public class ItemDetailBean {
 	private int itemId;
 	private int categoryId;
 	private String categoryName;
-	private String itemName;
+	private String InventoryName;
 	private String price;
 	private int remainingQuantity;
 	private String mainImage;
+	private String sellerName;
+	private String description;
+	private String location;
+	private Set<InventoryImage> inventoryimages;
 
 	
 	public String getMainImage() {
@@ -35,10 +43,10 @@ public class InventoryBean {
 		this.categoryName = categoryName;
 	}
 	public String getInventoryName() {
-		return itemName;
+		return InventoryName;
 	}
 	public void setInventoryName(String inventoryName) {
-		itemName = inventoryName;
+		InventoryName = inventoryName;
 	}
 	public String getPrice() {
 		return price;
@@ -51,6 +59,30 @@ public class InventoryBean {
 	}
 	public void setRemainingQuantity(int remainingQuantity) {
 		this.remainingQuantity = remainingQuantity;
+	}
+	public String getSellerName() {
+		return sellerName;
+	}
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public Set<InventoryImage> getInventoryimages() {
+		return inventoryimages;
+	}
+	public void setInventoryimages(Set<InventoryImage> inventoryimages) {
+		this.inventoryimages = inventoryimages;
 	}
 
 }
