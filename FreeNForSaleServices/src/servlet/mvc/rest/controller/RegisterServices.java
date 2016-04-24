@@ -31,11 +31,11 @@ public class RegisterServices {
 			try{
 				
 			response = manager.enrollUser(bean);
-			}catch(Exception e){
+			}catch (Exception e) {
 				e.printStackTrace();
+				return Response.serverError().status(400).entity(String.valueOf("-1")).build();
 			}
 			
-			Response.status(400);
 			return Response.ok().entity(response).build();
 			
 		}

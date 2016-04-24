@@ -3,6 +3,8 @@ package servlet.mvc.rest.model;// default package
 
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +33,7 @@ public class State implements java.io.Serializable {
 	@Column(name = "FullName", nullable = false, length = 30)
 	private String fullName;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "state", cascade=CascadeType.ALL)
 	private Set<User> users = new HashSet<User>(0);
 
 	public State() {

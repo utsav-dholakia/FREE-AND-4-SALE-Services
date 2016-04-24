@@ -3,6 +3,7 @@ package servlet.mvc.rest.beans;
 import java.util.Date;
 
 public class RegisterBean {
+	private Integer uid;
 	private String username;
 	private String name;
 	private String password; 
@@ -19,6 +20,12 @@ public class RegisterBean {
 	private int failedAttempts;
 	private String profilePhoto;
 	
+	public Integer getUid() {
+		return uid;
+	}
+	public void setUid(Integer uid) {
+		this.uid = uid;
+	}
 	public String getUsername() {
 		return username;
 	}
