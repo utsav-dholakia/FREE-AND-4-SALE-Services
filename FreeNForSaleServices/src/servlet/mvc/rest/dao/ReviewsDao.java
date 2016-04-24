@@ -2,41 +2,18 @@ package servlet.mvc.rest.dao;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Transaction;
 
+import servlet.mvc.rest.beans.ReviewBean;
+import servlet.mvc.rest.beans.ReviewDbBean;
+import servlet.mvc.rest.model.Cart;
 import servlet.mvc.rest.model.SellerReview;
 import servlet.mvc.rest.utility.HibernateUtil;
 
 public class ReviewsDao {
 
-	/**
-	 * Save tranaction
-	 * @param tr
-	 */
-	public void saveTranaction(servlet.mvc.rest.model.Transaction tr) {
-		Transaction	tx=HibernateUtil.getSession().beginTransaction();
-		HibernateUtil.getSession().save(tr); 
-        tx.commit();		
-	}
-
-	/**
-	 * Get Transactions
-	 * @param userId
-	 * @return
-	 */
-	public List<servlet.mvc.rest.model.Transaction> getTrHist(Integer userId) {
-		HibernateUtil.getSession().beginTransaction();
-		String queryStr = "SELECT * FROM Transaction where Uid =:id";
-		SQLQuery query = HibernateUtil.getSession().createSQLQuery(queryStr);
-		query.addEntity(servlet.mvc.rest.model.Transaction.class);
-		query.setParameter("id", userId);
-		List<servlet.mvc.rest.model.Transaction> trs= query.list();
-		HibernateUtil.getSession().getTransaction().commit();
-		System.out.println("query success");
-		return trs;
-	}
 
 	public void saveReview(SellerReview r) {
 		HibernateUtil.getSession().beginTransaction();
@@ -50,7 +27,6 @@ public class ReviewsDao {
 		HibernateUtil.getSession().beginTransaction();
 		String queryStr = "SELECT * FROM SellerReview where Uid =:id and SellerId =:sellerId";
 		SQLQuery query = HibernateUtil.getSession().createSQLQuery(queryStr);
-		query.addEntity(SellerReview.class);
 		query.setParameter("id", userId);
 		query.setParameter("sellerId", sellerId);
 		List<SellerReview> sr= query.list();
@@ -60,81 +36,37 @@ public class ReviewsDao {
 		return sr;
 	}
 
-
-/*
-	*//**
-	 * Method to insert in Cart table.
-	 * @param c
-	 * @return
-	 *//*
-	public void addToCart(Cart c) {
-		Transaction	tx=HibernateUtil.getSession().beginTransaction();
-		HibernateUtil.getSession().save(c); 
-        tx.commit();
-		
-	}
-
-	*//**
-	 * Method to get cart details from cart,inventoryc
-	 * @param id
-	 * @return
-	 *//*
-	public List<Cart> getcart(int id) {
+	public List<Object[]> getReviewByUserId(Integer userId) {
 		HibernateUtil.getSession().beginTransaction();
-		String queryStr = "SELECT * FROM Cart where Uid =:id and completed =:one";
+		/*String queryStr = "select distinct s.SellerId,s.Comment,s.Rating,s.UId,i.Name,u.name from sellerreview s, "
+				+ "inventory i,user u where s.sellerId=i.sellerId and u.uid=s.sellerId and s.Uid=:id";
 		SQLQuery query = HibernateUtil.getSession().createSQLQuery(queryStr);
-		query.addEntity(Cart.class);
-		query.setParameter("id", id);
-		byte one =1;
-		query.setParameter("one", one);
-		List<Cart> carts= query.list();
+		query.addEntity(ReviewDbBean.class);,
+		query.setParameter("id", userId);*/
+		String hql = "select distinct s.sellerId,s.comment,s.rating,s.userByUid_1.uid,i.name,u.name from SellerReview s, "
+				+ "Inventory i,User u where s.sellerId=i.user.uid and u.uid=s.sellerId and s.userByUid_1.uid=:id";
+		Query query = HibernateUtil.getSession().createQuery(hql);
+		query.setParameter("id", userId);
+		List<Object[]> sr= query.list();
 		HibernateUtil.getSession().getTransaction().commit();
+		
 		System.out.println("query success");
-		return carts;
+		return sr;
 	}
 
-	*//**
-	 * Delete from cart
-	 * @param cId
-	 *//*
-	public void deleteFromCart(CartId cId) {
+	 public void updateReview(ReviewBean rb) {
 		Transaction	tx=HibernateUtil.getSession().beginTransaction();
-        Cart cart= (Cart)HibernateUtil.getSession().get(Cart.class, cId); 
-		HibernateUtil.getSession().delete(cart); 
+		String queryStr = "Update SellerReview set comment =:comment , rating=:rating  where Uid =:id and SellerId =:sellerId";
+		SQLQuery query = HibernateUtil.getSession().createSQLQuery(queryStr);
+		query.addEntity(SellerReview.class);
+		query.setParameter("comment", rb.getComments());
+		query.setParameter("rating", rb.getRatings());
+		query.setParameter("id", rb.getUserId());
+		query.setParameter("sellerId", rb.getSellerId());
+		int x =query.executeUpdate();
         tx.commit();		
+        System.out.println(" Query succesful " + x + " rows updated");
 	}
 
-	*//**
-	 * Update cart
-	 * @param cartId
-	 * @param amount
-	 * @param quantity
-	 *//*
-	public void updateCart(CartId cartId, Float amount, int quantity) {
-		Transaction	tx=HibernateUtil.getSession().beginTransaction();
-        Cart cart= (Cart)HibernateUtil.getSession().get(Cart.class, cartId); 
-        cart.setAmount(amount);
-        cart.setQuantity(quantity);
-        HibernateUtil.getSession().update(cart); 
-        tx.commit();
-		
-	} 
 
-	*//**
-	 * update complete flag in cart to 1 i.e. purchase cart
-	 * @param cartId
-	 * @param i 
-	 * @param float1 
-	 *//*
-	public void completeCart(CartId cartId, Float amount, int quantity) {
-		Transaction	tx=HibernateUtil.getSession().beginTransaction();
-        Cart cart= (Cart)HibernateUtil.getSession().get(Cart.class, cartId); 
-        cart.setCompleted(Byte.valueOf("1"));
-        cart.setAmount(amount);
-        cart.setQuantity(quantity);
-        HibernateUtil.getSession().update(cart); 
-        tx.commit();
-		
-	}*/
-	
 }

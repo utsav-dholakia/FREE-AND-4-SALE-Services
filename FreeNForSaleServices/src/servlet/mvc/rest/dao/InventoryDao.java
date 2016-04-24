@@ -29,11 +29,11 @@ public class InventoryDao {
 	@SuppressWarnings("unchecked")
 	public List<Inventory> getInventoryForHomePage() throws HibernateException {
 
-		if (MemCacheUtil.getMemCachedClient().get(Properties.Inventorykey) != null) {
+		/*if (MemCacheUtil.getMemCachedClient().get(Properties.Inventorykey) != null) {
 			System.out.println(Properties.cacheHit);
 			return (List<Inventory>) MemCacheUtil.getMemCachedClient().get(Properties.Inventorykey);
 		} else {
-			System.out.println(Properties.cacheMiss);
+			System.out.println(Properties.cacheMiss);*/
 
 			Transaction tx = HibernateUtil.getSession().beginTransaction();
 
@@ -45,11 +45,11 @@ public class InventoryDao {
 			HibernateUtil.getSession().getTransaction().commit();
 			System.out.println("query success");
 
-			MemCacheUtil.getMemCachedClient().add(Properties.Inventorykey, 0, inventories);
+			//MemCacheUtil.getMemCachedClient().add(Properties.Inventorykey, 0, inventories);
 			return inventories;
 			// TODO Auto-generated method stub
 
-		}
+		//}
 	}
 
 	/**

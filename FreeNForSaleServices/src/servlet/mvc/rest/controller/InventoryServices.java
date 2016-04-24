@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import servlet.mvc.rest.beans.CartBean;
 import servlet.mvc.rest.beans.InventoryBean;
 import servlet.mvc.rest.beans.ItemDetailBean;
 import servlet.mvc.rest.beans.LoginBean;
@@ -60,6 +61,41 @@ public class InventoryServices {
 
 	}
 
+	/**
+	 * Inventory For home Page.
+	 * 
+	 * @param bean
+	 * @param key
+	 * @return
+	 * @throws URISyntaxException
+	 */
+	@Path("/InventoryForUserHomePage")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response fetchInventoryByUser(@HeaderParam("secretKey") String key,CartBean bean) throws URISyntaxException {
+		URI tempRedirect = new URI("../error.html");
+		if (key != null && key.equals(secretKey)) {
+			Map<Integer, ArrayList<InventoryBean>> inventoryMap = new HashMap<Integer, ArrayList<InventoryBean>>();
+			try {
+
+				inventoryMap = manager.fetchInventoryForHomePage(bean.getUserId());
+			} catch (Exception e) {
+				e.printStackTrace();
+				return Response.serverError().status(400).entity(String.valueOf("-1")).build();
+			}
+			// GenericEntity<Map<Integer,ArrayList<InventoryBean>>> generic =
+			// new GenericEntity
+			// <Map<Integer,ArrayList<InventoryBean>>>(inventoryMap){};
+			return Response.ok().entity(inventoryMap).build();
+
+		} else {
+			System.out.println("redirecting");
+			return Response.seeOther(tempRedirect).build();
+		}
+
+	}
+	
 	/**
 	 * fetch inventory by category.
 	 * 
