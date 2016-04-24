@@ -99,8 +99,8 @@ public class User implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Inventory> inventories = new HashSet<Inventory>(0);
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userByUid")
-	private SellerReview sellerreviewByUid;
+	/*@OneToOne(fetch = FetchType.LAZY, mappedBy = "userByUid")
+	private SellerReview sellerreviewByUid;*/
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userByUid_1")
 	private Set<SellerReview> sellerreviewsForUid = new HashSet<SellerReview>(0);
@@ -273,13 +273,13 @@ public class User implements java.io.Serializable {
 		this.inventories = inventories;
 	}
 
-	public SellerReview getSellerreviewByUid() {
+	/*public SellerReview getSellerreviewByUid() {
 		return this.sellerreviewByUid;
 	}
 
 	public void setSellerreviewByUid(SellerReview sellerreviewByUid) {
 		this.sellerreviewByUid = sellerreviewByUid;
-	}
+	}*/
 
 	public Set<SellerReview> getSellerreviewsForUid() {
 		return this.sellerreviewsForUid;

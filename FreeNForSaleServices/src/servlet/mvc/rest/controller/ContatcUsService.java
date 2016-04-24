@@ -50,7 +50,7 @@ public class ContatcUsService {
 				response=	manager.sendEmail(bean);
 			}catch(Exception e){
 				e.printStackTrace();
-			}
+				return Response.serverError().status(400).entity(String.valueOf("-1")).build();			}
 			return Response.ok().entity(response).build();			
 
 		}

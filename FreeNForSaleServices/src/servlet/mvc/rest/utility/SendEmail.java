@@ -10,8 +10,8 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties; 
 public class SendEmail {
  
- final String senderEmail = "spexysam@gmail.com";
- final String senderPassword = "";
+ final String senderEmail = "freenforsale@gmail.com";
+ final String senderPassword = " allareadmin";
  final String emailSMTPserver = "smtp.gmail.com";
  final String emailServerPort = "587";
  String receiverEmail = null;

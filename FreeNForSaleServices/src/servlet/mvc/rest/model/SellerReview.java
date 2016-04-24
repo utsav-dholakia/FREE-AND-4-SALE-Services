@@ -20,17 +20,17 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @Table(name = "SellerReview", catalog = "FreeNForSale")
 public class SellerReview implements java.io.Serializable {
-
+/*
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userByUid"))
 	@Id
-	@GeneratedValue(generator = "generator")
-
+	@GeneratedValue(generator = "generator")*/
+	@Id
 	@Column(name = "SellerId", unique = true, nullable = false)
 	private int sellerId;
 
-	@OneToOne(fetch = FetchType.LAZY)
+/*	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
-	private User userByUid;
+	private User userByUid;*/
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "UId", nullable = false)
@@ -45,7 +45,7 @@ public class SellerReview implements java.io.Serializable {
 	public SellerReview() {
 	}
 
-	public SellerReview(User userByUid, User userByUid_1, int rating) {
+	/*public SellerReview(User userByUid, User userByUid_1, int rating) {
 		this.userByUid = userByUid;
 		this.userByUid_1 = userByUid_1;
 		this.rating = rating;
@@ -56,7 +56,7 @@ public class SellerReview implements java.io.Serializable {
 		this.userByUid_1 = userByUid_1;
 		this.rating = rating;
 		this.comment = comment;
-	}
+	}*/
 
 	public int getSellerId() {
 		return this.sellerId;
@@ -66,13 +66,13 @@ public class SellerReview implements java.io.Serializable {
 		this.sellerId = sellerId;
 	}
 
-	public User getUserByUid() {
+	/*public User getUserByUid() {
 		return this.userByUid;
 	}
 
 	public void setUserByUid(User userByUid) {
 		this.userByUid = userByUid;
-	}
+	}*/
 
 	public User getUserByUid_1() {
 		return this.userByUid_1;

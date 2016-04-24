@@ -26,11 +26,11 @@ public class Cart implements java.io.Serializable {
 			@AttributeOverride(name = "ItemId", column = @Column(name = "ItemId", nullable = false)) })
 	private CartId id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ItemId", nullable = false, insertable = false, updatable = false)
 	private Inventory inventory;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "UId", nullable = false, insertable = false, updatable = false)
 	private User user;
 	

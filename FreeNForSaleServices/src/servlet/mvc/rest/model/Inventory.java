@@ -58,10 +58,10 @@ public class Inventory implements java.io.Serializable {
 	@Column(name = "Location", nullable = false, length = 50)
 	private String location;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "inventory")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "inventory")
 	private Set<Transaction> transactions = new HashSet<Transaction>(0);
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "inventory")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "inventory")
 	private Set<Cart> carts = new HashSet<Cart>(0);
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "inventory")

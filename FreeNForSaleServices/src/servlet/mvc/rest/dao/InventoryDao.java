@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 
 import servlet.mvc.rest.beans.ItemDetailBean;
 import servlet.mvc.rest.beans.LoginBean;
+import servlet.mvc.rest.model.Cart;
 import servlet.mvc.rest.model.Inventory;
 import servlet.mvc.rest.model.User;
 import servlet.mvc.rest.model.UserLoginInfo;
@@ -87,11 +88,11 @@ public class InventoryDao {
 	 * @return
 	 */
 	public List<Inventory> getMoreDetails(int itemId) {
-		if (MemCacheUtil.getMemCachedClient().get(Properties.item + itemId) != null) {
+	/*	if (MemCacheUtil.getMemCachedClient().get(Properties.item + itemId) != null) {
 			System.out.println(Properties.cacheHit);
 			return (List<Inventory>) MemCacheUtil.getMemCachedClient().get(Properties.item + itemId);
 		} else {
-			System.out.println(Properties.cacheMiss);
+			System.out.println(Properties.cacheMiss);*/
 
 			Transaction tx = HibernateUtil.getSession().beginTransaction();
 
@@ -105,9 +106,9 @@ public class InventoryDao {
 			HibernateUtil.getSession().getTransaction().commit();
 			System.out.println("query success");
 
-			MemCacheUtil.getMemCachedClient().add(Properties.item + itemId, 0, inventories);
+			//MemCacheUtil.getMemCachedClient().add(Properties.item + itemId, 0, inventories);
 			return inventories;
-		}
+		//}
 	}
 
 	public List<Inventory> getInventoryByName(String inventoryName) {
@@ -127,5 +128,18 @@ public class InventoryDao {
 
 			return inventories;
 	
+	}
+
+	/**
+	 * Update remaining count on purchase
+	 * @param q
+	 * @param itemId
+	 */
+	public void updateRemainingCount(int q, Integer itemId) {
+		Transaction	tx=HibernateUtil.getSession().beginTransaction();
+        Inventory i= (Inventory)HibernateUtil.getSession().get(Inventory.class, itemId); 
+        i.setRemainingQuantity(q);
+        HibernateUtil.getSession().update(i); 
+        tx.commit();
 	}
 }
