@@ -12,9 +12,9 @@ import servlet.mvc.rest.model.UserLoginInfo;
 public class RegisterManager {
 	static RegisterDao dao =  new RegisterDao();
 	
-	public String enrollUser(RegisterBean bean) {
+	public Integer enrollUser(RegisterBean bean) {
 		// TODO Auto-generated method stub
-		String response;
+		Integer response;
 		
 		String status = dao.getUserNameStatus(bean);
 		if (status == null){
@@ -30,7 +30,7 @@ public class RegisterManager {
 					new Date(), 0);
 			response = dao.getEnrollmentStatus(user);
 		}else 
-			response = status + " already exists.";
+			response = -1;
 		
 		return response;
 	}

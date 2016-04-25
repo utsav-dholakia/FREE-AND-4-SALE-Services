@@ -27,7 +27,7 @@ public class RegisterServices {
         URI tempRedirect=new URI("../error.html");
 		if(key!=null && key.equals(secretKey))
 		{
-			String response = "";
+			Integer response = -1;
 			try{
 				
 			response = manager.enrollUser(bean);
@@ -36,7 +36,7 @@ public class RegisterServices {
 				return Response.serverError().status(400).entity(String.valueOf("-1")).build();
 			}
 			
-			return Response.ok().entity(response).build();
+			return Response.ok().entity(String.valueOf(response)).build();
 			
 		}
 		else

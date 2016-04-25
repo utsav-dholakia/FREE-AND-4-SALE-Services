@@ -29,7 +29,7 @@ public class RegisterDao {
 			return null;
 	}
 	
-	public String getEnrollmentStatus(User user) {
+	public Integer getEnrollmentStatus(User user) {
 		// TODO Auto-generated method stub
 		Transaction	tx=HibernateUtil.getSession().beginTransaction();
 //		
@@ -44,7 +44,7 @@ public class RegisterDao {
 		HibernateUtil.getSession().save(user.getUserLoginInfo());
 		System.out.println("User login credentials added to the database"); //   
         tx.commit();
-		return "User registration is successful.";
+		return user.getUserLoginInfo().getUid();
 	}
 
 	
