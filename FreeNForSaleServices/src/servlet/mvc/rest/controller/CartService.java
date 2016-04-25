@@ -35,7 +35,7 @@ public class CartService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Response fetchInventory(@HeaderParam("secretKey")String key,CartBean bean) throws URISyntaxException {
+	public Response addToCart(@HeaderParam("secretKey")String key,CartBean bean) throws URISyntaxException {
         URI tempRedirect=new URI("../error.html");
         String response = "success";
 		if(key!=null && key.equals(secretKey))

@@ -30,18 +30,18 @@ public class LoginManager {
 			if(userLoginInfo.getPassword().equals(bean.getPassword())){	
 				Date curDate=new Date();
 				dao.updateLoginTime(userLoginInfo.getUid(),curDate);
-				userLoginInfoList.get(0).getUser().setLastLoginTime(curDate);
+			//	userLoginInfoList.get(0).getUser().setLastLoginTime(curDate);
 				
 			uId= ((Integer)userLoginInfo.getUid()).toString();
 			}else
 			{
 				int attmpts= userLoginInfo.getUser().getFailedAttempts()+1;
 				dao.updateFailedLogin(userLoginInfo.getUid(),attmpts);
-				userLoginInfoList.get(0).getUser().setFailedAttempts(attmpts);
+			//	userLoginInfoList.get(0).getUser().setFailedAttempts(attmpts);
 				System.out.println("empty");
 				uId= "-1";
 			}
-			MemCacheUtil.getMemCachedClient().replace(bean.getName(),0, userLoginInfoList);
+		//	MemCacheUtil.getMemCachedClient().replace(bean.getName(),0, userLoginInfoList);
 		}
 		else
 		{
