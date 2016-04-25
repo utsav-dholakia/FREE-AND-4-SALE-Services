@@ -1,15 +1,23 @@
 package servlet.mvc.rest.manager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import servlet.mvc.rest.beans.InventoryBean;
 import servlet.mvc.rest.beans.ItemDetailBean;
 import servlet.mvc.rest.dao.InventoryDao;
+import servlet.mvc.rest.model.Category;
 import servlet.mvc.rest.model.Inventory;
 import servlet.mvc.rest.model.InventoryImage;
+import servlet.mvc.rest.model.InventoryimageId;
+import servlet.mvc.rest.model.State;
+import servlet.mvc.rest.model.User;
+import servlet.mvc.rest.model.UserLoginInfo;
 
 public class InventoryManager {
 	static InventoryDao dao = new InventoryDao();
@@ -156,6 +164,64 @@ public class InventoryManager {
 			}
 		}
 		return inventoryMap;
+	}
+	
+	public String addItem(ItemDetailBean bean) {
+		// TODO Auto-generated method stub
+		String response = new String();
+		
+		/*State state = new State();
+		state.setStateId(bean.getState());
+		UserLoginInfo userLogin = new UserLoginInfo();
+		userLogin.setUserName(bean.getUsername());
+		userLogin.setPassword(bean.getPassword());
+		Date bdate = new Date(bean.getBdate());
+		
+		User user = new User(state, userLogin, bean.getName(), bdate, bean.getPhone(),
+				bean.getEmail(), bean.getStreet(), bean.getCity(), bean.getZipcode(), bean.getSex(), bean.getSsn(),
+				new Date(), 0);*/
+		
+		Category categoryTrantiant = new Category();
+		categoryTrantiant.setCategoryId(bean.getCategoryId());
+		User userTrantiant = new User();
+		userTrantiant.setUid(bean.getSellerId());
+		
+		Set <InventoryImage> iImage = new HashSet <InventoryImage>();
+		ArrayList<String> allImages = bean.getAllImages();
+		int i = 0;
+		boolean flag = true;
+		if (allImages != null && allImages.size()>0){
+			for (String s : allImages){
+				InventoryImage iImageIn = new InventoryImage();
+				InventoryimageId iImageId = new InventoryimageId();
+				iImageId.setItemId(bean.getItemId());
+				iImageId.setImageId(i);
+				i++;
+				iImageIn.setId(iImageId);
+				iImageIn.setImage(s);
+				if (flag){
+					iImageIn.setRank(true);
+					flag = false;
+				}
+				iImage.add(iImageIn);
+			}
+		}
+		
+		Inventory newInventory = new Inventory();
+		newInventory.setName(bean.getInventoryName());
+		newInventory.setTotalQuantity(bean.getRemainingQuantity());
+		newInventory.setRemainingQuantity(bean.getRemainingQuantity());
+		newInventory.setDescription(bean.getDescription());
+		newInventory.setCategory(categoryTrantiant);
+		newInventory.setPrice(Float.valueOf(bean.getPrice()));
+		newInventory.setUser(userTrantiant);
+		newInventory.setDescription(bean.getDescription());
+		if (iImage.size() > 0){
+			newInventory.setInventoryimages(iImage);
+		}
+		newInventory.setLocation(bean.getLocation());
+		response = dao.addInventoryToDatabase(newInventory, (HashSet<InventoryImage>) iImage);
+		return response;
 	}
 
 }

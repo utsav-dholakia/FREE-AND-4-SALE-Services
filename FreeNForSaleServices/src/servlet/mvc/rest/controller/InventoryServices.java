@@ -193,4 +193,30 @@ public class InventoryServices {
 		}
 
 	}
+	
+	@Path("/AddToInventory")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addInventory(ItemDetailBean bean, @HeaderParam("secretKey") String key)
+			throws URISyntaxException {
+		URI tempRedirect = new URI("../error.html");
+		if (key != null && key.equals(secretKey)) {
+			String response = new String();
+			try {
+
+				response = manager.addItem(bean);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return Response.serverError().status(400).entity(String.valueOf("-1")).build();
+			}
+			return Response.ok().entity(response).build();
+
+		} else {
+			System.out.println("redirecting");
+			return Response.seeOther(tempRedirect).build();
+		}
+
+	}
+
 }

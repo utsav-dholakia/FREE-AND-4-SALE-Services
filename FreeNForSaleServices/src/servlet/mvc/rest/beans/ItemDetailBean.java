@@ -1,5 +1,6 @@
 package servlet.mvc.rest.beans;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import servlet.mvc.rest.model.InventoryImage;
@@ -16,6 +17,8 @@ public class ItemDetailBean {
 	private String description;
 	private String location;
 	private Set<InventoryImage> inventoryimages;
+	private ArrayList<String> allImages;
+	private Integer sellerId;
 
 	
 	public String getMainImage() {
@@ -84,5 +87,16 @@ public class ItemDetailBean {
 	public void setInventoryimages(Set<InventoryImage> inventoryimages) {
 		this.inventoryimages = inventoryimages;
 	}
-
+	public ArrayList<String> getAllImages() {
+		return allImages;
+	}
+	public void setAllImages(ArrayList<String> allImages) {
+		this.allImages = allImages;
+	}
+	public Integer getSellerId() {
+		return sellerId;
+	}
+	public void setSellerId(Integer sellerId) {
+		this.sellerId = sellerId;
+	}
 }

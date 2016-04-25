@@ -1,5 +1,6 @@
 package servlet.mvc.rest.dao;
 
+import java.util.HashSet;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import servlet.mvc.rest.model.UserLoginInfo;
 import servlet.mvc.rest.utility.HibernateUtil;
 import servlet.mvc.rest.utility.MemCacheUtil;
 import servlet.mvc.rest.utility.Properties;
+import servlet.mvc.rest.model.InventoryImage;
 
 public class InventoryDao {
 
@@ -141,5 +143,21 @@ public class InventoryDao {
         i.setRemainingQuantity(q);
         HibernateUtil.getSession().update(i); 
         tx.commit();
+	}
+
+	public String addInventoryToDatabase(Inventory newInventory, HashSet<InventoryImage> iImage) {
+		// TODO Auto-generated method stub
+		Transaction	tx=HibernateUtil.getSession().beginTransaction();
+
+		int object =(int) HibernateUtil.getSession().save(newInventory);
+		System.out.println("Item added to the Inventory database");
+		for(InventoryImage iImageIt : iImage){
+			iImageIt.getId().setItemId(object);
+			HibernateUtil.getSession().save(iImageIt);
+		}
+		System.out.println("Item Images added to the Inventory Image database for Item with Item id: "); //   
+        tx.commit();
+		return "Item added successfully.";
+		
 	}
 }
