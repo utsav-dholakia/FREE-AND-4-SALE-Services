@@ -40,7 +40,7 @@ public class ContatcUsService {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Response FetchMoreDetails(EmailBean bean,@HeaderParam("secretKey")String key) throws URISyntaxException {
-        URI tempRedirect=new URI("../error.html");
+        URI tempRedirect=new URI("../error.jsp");
         String response="";
 		if(key!=null && key.equals(secretKey))
 		{

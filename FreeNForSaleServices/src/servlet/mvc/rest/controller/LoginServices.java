@@ -34,7 +34,7 @@ public class LoginServices {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response isValidUser(LoginBean bean, @HeaderParam("secretKey") String key) throws URISyntaxException {
-		URI tempRedirect = new URI("../error.html");
+		URI tempRedirect = new URI("../error.jsp");
 		if (key != null && key.equals(secretKey)) {
 			String response = "";
 			try {

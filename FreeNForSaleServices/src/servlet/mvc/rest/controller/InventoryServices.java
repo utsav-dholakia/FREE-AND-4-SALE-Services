@@ -39,7 +39,7 @@ public class InventoryServices {
 	// @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response fetchInventory(@HeaderParam("secretKey") String key) throws URISyntaxException {
-		URI tempRedirect = new URI("../error.html");
+		URI tempRedirect = new URI("../error.jsp");
 		if (key != null && key.equals(secretKey)) {
 			Map<Integer, ArrayList<InventoryBean>> inventoryMap = new HashMap<Integer, ArrayList<InventoryBean>>();
 			try {
@@ -74,7 +74,7 @@ public class InventoryServices {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response fetchInventoryByUser(@HeaderParam("secretKey") String key,CartBean bean) throws URISyntaxException {
-		URI tempRedirect = new URI("../error.html");
+		URI tempRedirect = new URI("../error.jsp");
 		if (key != null && key.equals(secretKey)) {
 			Map<Integer, ArrayList<InventoryBean>> inventoryMap = new HashMap<Integer, ArrayList<InventoryBean>>();
 			try {
@@ -110,7 +110,7 @@ public class InventoryServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response fetchInventoryById(InventoryBean bean, @HeaderParam("secretKey") String key)
 			throws URISyntaxException {
-		URI tempRedirect = new URI("../error.html");
+		URI tempRedirect = new URI("../error.jsp");
 		if (key != null && key.equals(secretKey)) {
 			ArrayList<InventoryBean> inventoryList = new ArrayList<InventoryBean>();
 			try {
@@ -143,7 +143,7 @@ public class InventoryServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response FetchMoreDetails(InventoryBean bean, @HeaderParam("secretKey") String key)
 			throws URISyntaxException {
-		URI tempRedirect = new URI("../error.html");
+		URI tempRedirect = new URI("../error.jsp");
 		if (key != null && key.equals(secretKey)) {
 			ItemDetailBean itemDetailBean = new ItemDetailBean();
 			try {

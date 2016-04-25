@@ -36,7 +36,7 @@ public class CartService {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Response addToCart(@HeaderParam("secretKey")String key,CartBean bean) throws URISyntaxException {
-        URI tempRedirect=new URI("../error.html");
+        URI tempRedirect=new URI("../error.jsp");
         String response = "success";
 		if(key!=null && key.equals(secretKey))
 		{
@@ -72,7 +72,7 @@ public class CartService {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Response getCart(@HeaderParam("secretKey")String key,CartBean bean) throws URISyntaxException {
-        URI tempRedirect=new URI("../error.html");
+        URI tempRedirect=new URI("../error.jsp");
         List<ViewCartBean> cartList=new ArrayList<ViewCartBean>();
         if(key!=null && key.equals(secretKey))
 		{
@@ -84,7 +84,6 @@ public class CartService {
 				return Response.serverError().status(400).entity(String.valueOf("-1")).build();
 
 			}
-			
 			return Response.ok().entity(cartList).build();
 		}
 		else
@@ -107,7 +106,7 @@ public class CartService {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Response saveUpdateCart(@HeaderParam("secretKey")String key,UpdateCartBean bean) throws URISyntaxException {
-        URI tempRedirect=new URI("../error.html");
+        URI tempRedirect=new URI("../error.jsp");
         String response = "success";
 
         if(key!=null && key.equals(secretKey))
@@ -143,7 +142,7 @@ public class CartService {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Response purchaseCart(@HeaderParam("secretKey")String key,UpdateCartBean bean) throws URISyntaxException {
-        URI tempRedirect=new URI("../error.html");
+        URI tempRedirect=new URI("../error.jsp");
         String response = "success";
 
         if(key!=null && key.equals(secretKey))

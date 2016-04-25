@@ -36,7 +36,7 @@ public class TransactionService {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Response getTransactionHistory(@HeaderParam("secretKey")String key,CartBean bean) throws URISyntaxException {
-        URI tempRedirect=new URI("../error.html");
+        URI tempRedirect=new URI("../error.jsp");
         List<ViewCartBean> cartList=new ArrayList<ViewCartBean>();
         if(key!=null && key.equals(secretKey))
 		{

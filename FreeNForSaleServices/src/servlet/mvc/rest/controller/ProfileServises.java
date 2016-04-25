@@ -27,7 +27,7 @@ public class ProfileServises {
 //  @Produces(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getProfile(LoginBean bean, @HeaderParam("secretKey")String key) throws URISyntaxException {
-        URI tempRedirect=new URI("../error.html");
+        URI tempRedirect=new URI("../error.jsp");
 		if(key!=null && key.equals(secretKey))
 		{
 			RegisterBean response = new RegisterBean();
@@ -54,7 +54,7 @@ public class ProfileServises {
 //  @Produces(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateProfile(RegisterBean bean, @HeaderParam("secretKey")String key) throws URISyntaxException {
-        URI tempRedirect=new URI("../error.html");
+        URI tempRedirect=new URI("../error.jsp");
 		if(key!=null && key.equals(secretKey))
 		{
 			RegisterBean response = new RegisterBean();

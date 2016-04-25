@@ -36,7 +36,7 @@ public class ReviewServices {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Response getCart(@HeaderParam("secretKey")String key,CartBean bean) throws URISyntaxException {
-        URI tempRedirect=new URI("../error.html");
+        URI tempRedirect=new URI("../error.jsp");
         Map<Integer, ReviewBean> reviews=new HashMap<Integer, ReviewBean>();
         if(key!=null && key.equals(secretKey))
 		{
@@ -71,7 +71,7 @@ public class ReviewServices {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Response saveReviews(@HeaderParam("secretKey")String key,List<ReviewBean> bean) throws URISyntaxException {
-        URI tempRedirect=new URI("../error.html");
+        URI tempRedirect=new URI("../error.jsp");
         Map<Integer, ReviewBean> reviews=new HashMap<Integer, ReviewBean>();
         if(key!=null && key.equals(secretKey))
 		{

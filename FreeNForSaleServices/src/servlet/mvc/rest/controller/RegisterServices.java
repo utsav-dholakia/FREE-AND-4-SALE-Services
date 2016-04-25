@@ -24,7 +24,7 @@ public class RegisterServices {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
 	public Response addUser(RegisterBean bean, @HeaderParam("secretKey")String key) throws URISyntaxException {
-        URI tempRedirect=new URI("../error.html");
+        URI tempRedirect=new URI("../error.jsp");
 		if(key!=null && key.equals(secretKey))
 		{
 			Integer response = -1;
