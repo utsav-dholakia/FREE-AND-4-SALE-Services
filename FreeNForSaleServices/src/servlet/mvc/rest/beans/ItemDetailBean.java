@@ -16,7 +16,6 @@ public class ItemDetailBean {
 	private String sellerName;
 	private String description;
 	private String location;
-	private Set<InventoryImage> inventoryimages;
 	private ArrayList<String> allImages;
 	private Integer sellerId;
 
@@ -81,12 +80,7 @@ public class ItemDetailBean {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public Set<InventoryImage> getInventoryimages() {
-		return inventoryimages;
-	}
-	public void setInventoryimages(Set<InventoryImage> inventoryimages) {
-		this.inventoryimages = inventoryimages;
-	}
+
 	public ArrayList<String> getAllImages() {
 		return allImages;
 	}

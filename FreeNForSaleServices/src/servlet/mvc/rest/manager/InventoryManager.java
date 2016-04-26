@@ -95,8 +95,13 @@ public class InventoryManager {
 			itemDetailBean.setCategoryName(i.getCategory().getName());
 			if (i.getDescription() != null && !i.getDescription().isEmpty())
 				itemDetailBean.setDescription(i.getDescription());
-			if (i.getInventoryimages() != null)
-				itemDetailBean.setInventoryimages(i.getInventoryimages());
+			if (i.getInventoryimages() != null){
+				ArrayList<String> images= new ArrayList<String>();
+				for(InventoryImage ii: i.getInventoryimages()){
+					images.add(ii.getImage());
+				}
+				itemDetailBean.setAllImages(images);
+			}
 			itemDetailBean.setInventoryName(i.getName());
 			itemDetailBean.setItemId(itemId);
 			if (i.getLocation() != null && !i.getLocation().isEmpty())
