@@ -1,3 +1,10 @@
+Delete from SellerReview;
+Delete from Transaction;
+Delete from cart;
+Delete from InventoryImage;
+Delete from Inventory;
+
+
 Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(1, 'T-Shirt', 25, 25, 'Long Pink Tshirt ', 2, 8.75, 4, 'McCallum Glen');
 Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(2, 'Black Pant', 22, 22, 'Long Pink Tshirt ', 2, 12.5, 4, 'McCallum Glen');
 Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(3, 'Watch', 25, 25, 'Black And Golden Watch', 2, 30.0, 3, 'Ashwood Apartments');
