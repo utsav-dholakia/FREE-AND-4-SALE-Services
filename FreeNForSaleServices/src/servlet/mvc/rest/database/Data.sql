@@ -56,11 +56,7 @@ INSERT into State (Name,FullName) values ('AL', 'Alabama'),
 #Add data into Category table
 
 INSERT INTO Category (Name) VALUES 
-("Furniture"),
+("Heavy Goods"),
 ("Clothing,Shoes & Jewelry"),
-("Books"),
-("Cars"),
-("Electronics"),
-("Promotions"),
-("Cosmetics"),
-("Other");
+("Light Products"),
+;
