@@ -17,6 +17,7 @@ public class ProfileManager {
 		User temp = userQuery.get(0);
 		userDetails.setName(temp.getName());
 		userDetails.setBdate(temp.getBdate().getTime());
+		
 		userDetails.setPhone(temp.getPhone());
 		userDetails.setEmail(temp.getEmail());
 		userDetails.setStreet(temp.getStreet());
