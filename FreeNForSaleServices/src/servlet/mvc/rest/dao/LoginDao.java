@@ -27,12 +27,12 @@ public class LoginDao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<UserLoginInfo> getUserName(LoginBean bean) throws HibernateException {
-/*
+
 		if (MemCacheUtil.getMemCachedClient().get(bean.getName()) != null) {
 			System.out.println(Properties.cacheHit);
 			return (List<UserLoginInfo>) MemCacheUtil.getMemCachedClient().get(bean.getName());
 		} else {
-			System.out.println(Properties.cacheMiss);*/
+			System.out.println(Properties.cacheMiss);
 
 			Transaction tx = HibernateUtil.getSession().beginTransaction();
 
@@ -49,11 +49,11 @@ public class LoginDao {
 			// HibernateUtil.getSession().close();
 			System.out.println("query success");
 
-			//MemCacheUtil.getMemCachedClient().add(bean.getName(), 0, userLoginInfo);
+			MemCacheUtil.getMemCachedClient().add(bean.getName(), 0, userLoginInfo);
 			return userLoginInfo;
 			// TODO Auto-generated method stub
 
-		//}
+		}
 	}
 
 	/**
