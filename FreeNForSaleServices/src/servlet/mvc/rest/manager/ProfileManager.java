@@ -1,5 +1,6 @@
 package servlet.mvc.rest.manager;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import servlet.mvc.rest.beans.LoginBean;
@@ -27,7 +28,12 @@ public class ProfileManager {
 		userDetails.setSex(temp.getSex());
 		userDetails.setSsn(temp.getSsn());
 		userDetails.setLastLoginTime(temp.getLastLoginTime());
+		System.out.println("time:" + temp.getLastLoginTime());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM dd::HH mm ss");
+		userDetails.setLastLoginInString(sdf.format(temp.getLastLoginTime()));
+		System.out.println(userDetails.getLastLoginInString());
 		userDetails.setFailedAttempts(temp.getFailedAttempts());
+		
 		userDetails.setProfilePhoto(temp.getProfilePhoto());	
 		return userDetails;
 	}

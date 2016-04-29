@@ -17,6 +17,13 @@ public class RegisterBean {
 	private String sex;
 	private Long ssn;
 	private Date lastLoginTime;
+	private String lastLoginInString;
+	public String getLastLoginInString() {
+		return lastLoginInString;
+	}
+	public void setLastLoginInString(String lastLoginInString) {
+		this.lastLoginInString = lastLoginInString;
+	}
 	private int failedAttempts;
 	private String profilePhoto;
 	
