@@ -3,7 +3,11 @@ Delete from Transaction;
 Delete from cart;
 Delete from InventoryImage;
 Delete from Inventory;
+Delete from Category;
 
+INSERT INTO Category VALUES (1,"Heave Products");
+INSERT INTO Category VALUES (2,"Clothing,Shoes & Jewelry");
+INSERT INTO Category VALUES (3,"Light Products");
 
 Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(1, 'T-Shirt', 25, 25, 'Long Pink Tshirt ', 2, 8.75, 4, 'McCallum Glen');
 Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(2, 'Black Pant', 22, 22, 'Long Pink Tshirt ', 2, 12.5, 4, 'McCallum Glen');
@@ -17,9 +21,9 @@ Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,C
 Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(10, 'Iphone 6S', 15, 15, 'Boxed Iphone 6S white model', 1, 412, 1, 'Glen of McCallum');
 Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(11, 'S5 cover', 10, 10, 'Used S5 cover for sale', 3, 2.00, 2, 'University Village');
 Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(12, 'Graduation gown', 10, 10, 'Not needed anymore - returning to India', 3, 20, 5, 'Glen');
-Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(13, 'Book - Statistics', 10, 10, 'Fifth Edition', 3, 27.00, 2, 'Ashwood Apartments')
-Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(14, 'Book - CLRS', 10, 10, 'Third Edition', 3, 27.00, 1, 'Ashwood Apartments')
-Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(15, 'Book - Database Design', 10,10, 'Seventh Edition-Elmasri', 3, 27.00, 3, 'Ashwood Apartments')
+Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(13, 'Book - Statistics', 10, 10, 'Fifth Edition', 3, 27.00, 2, 'Ashwood Apartments');
+Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(14, 'Book - CLRS', 10, 10, 'Third Edition', 3, 27.00, 1, 'Ashwood Apartments');
+Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(15, 'Book - Database Design', 10,10, 'Seventh Edition-Elmasri', 3, 27.00, 3, 'Ashwood Apartments');
 Insert into Inventory (ItemId,Name,TotalQuantity,RemainingQuantity,Description,CategoryId,Price,SellerId,Location) values 	(16, 'Coupon', 15, 15, 'Kohls 15 % off' , 3, 15, 2,'Ashwood Apartments');
 
 
