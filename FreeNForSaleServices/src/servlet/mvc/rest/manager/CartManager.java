@@ -61,26 +61,33 @@ public class CartManager {
 	public List<ViewCartBean> getCart(CartBean bean) {
 		List<Cart> cartList = dao.getcart(bean.getUserId());
 		List<ViewCartBean> viewCartBeans = new ArrayList<ViewCartBean>();
+		InventoryDao iDao= new InventoryDao();
+		
 		for (Cart c : cartList) {
+			System.out.println(c.getInventory().getItemId());
 			ViewCartBean vcb = new ViewCartBean();
+			
 			vcb.setAmount(Float.toString(c.getAmount()));
-			if (c.getInventory().getCategory() != null)
-				vcb.setCategoryId(c.getInventory().getCategory().getCategoryId());
 			vcb.setCompleted(Byte.toString(c.getCompleted()));
 			vcb.setId(c.getId().getCartId());
-			for (InventoryImage ii : c.getInventory().getInventoryimages()) {
-				if (ii.isRank()) {
-					vcb.setImage(ii.getImage());
-				}
-			}
 			vcb.setInventoryId(c.getInventory().getItemId());
-			vcb.setItemName(c.getInventory().getName());
+			
 			vcb.setQuantity(c.getQuantity());
-			vcb.setTotalQuantity(c.getInventory().getTotalQuantity());
-			InventoryDao iDao=new InventoryDao();
+			
 			List<Inventory>inList= iDao.getMoreDetails(vcb.getInventoryId());
-			if (inList != null && inList.size()>0 && inList.get(0).getUser().getUid()>0)
+			if (inList != null && inList.size()>0 && inList.get(0).getUser().getUid()>0){
 				vcb.setSellerId(inList.get(0).getUser().getUid());
+				if (inList.get(0).getCategory() != null)
+					vcb.setCategoryId(inList.get(0).getCategory().getCategoryId());
+				
+				for (InventoryImage ii : inList.get(0).getInventoryimages()) {
+					if (ii.isRank()) {
+						vcb.setImage(ii.getImage());
+					}
+				}
+				vcb.setTotalQuantity(inList.get(0).getTotalQuantity());
+				vcb.setItemName(inList.get(0).getName());
+			}
 			vcb.setUserId(c.getId().getUid());
 			viewCartBeans.add(vcb);
 		}
