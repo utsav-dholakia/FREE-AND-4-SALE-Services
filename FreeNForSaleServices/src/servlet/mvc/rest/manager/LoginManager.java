@@ -22,10 +22,12 @@ public class LoginManager {
 	public String validateUser(LoginBean bean)throws HibernateException  {
 		// TODO Auto-generated method stub
 		List <UserLoginInfo> userLoginInfoList = dao.getUserName(bean);
+		List <UserLoginInfo> userLoginInfoList1 = dao.getUserName1(bean);
 		String uId="";
-		if(!userLoginInfoList.isEmpty() && userLoginInfoList.size() > 0)
+		if(!userLoginInfoList.isEmpty() && userLoginInfoList.size() > 0 && !userLoginInfoList1.isEmpty() && userLoginInfoList1.size() > 0 )
 		{
 			UserLoginInfo userLoginInfo =userLoginInfoList.get(0);
+			UserLoginInfo userLoginInfo1 =userLoginInfoList1.get(0);
 			System.out.println(((Integer)userLoginInfo.getUid()).toString());
 			if(userLoginInfo.getPassword().equals(bean.getPassword())){	
 				Date curDate=new Date();
@@ -35,8 +37,8 @@ public class LoginManager {
 			uId= ((Integer)userLoginInfo.getUid()).toString();
 			}else
 			{
-				int attmpts= userLoginInfo.getUser().getFailedAttempts()+1;
-				dao.updateFailedLogin(userLoginInfo.getUid(),attmpts);
+				int attmpts= userLoginInfo1.getUser().getFailedAttempts()+1;
+				dao.updateFailedLogin(userLoginInfo1.getUid(),attmpts);
 			//	userLoginInfoList.get(0).getUser().setFailedAttempts(attmpts);
 				System.out.println("empty");
 				uId= "-1";

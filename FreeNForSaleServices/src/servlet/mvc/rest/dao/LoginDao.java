@@ -55,6 +55,35 @@ public class LoginDao {
 
 		}
 	}
+	public List<UserLoginInfo> getUserName1(LoginBean bean) throws HibernateException {
+
+//		if (MemCacheUtil.getMemCachedClient().get(bean.getName()) != null) {
+//			System.out.println(Properties.cacheHit);
+//			return (List<UserLoginInfo>) MemCacheUtil.getMemCachedClient().get(bean.getName());
+//		} else {
+//			System.out.println(Properties.cacheMiss);
+
+			Transaction tx = HibernateUtil.getSession().beginTransaction();
+
+			String queryStr = "SELECT * FROM UserLoginInfo WHERE UserName = :userName";
+			SQLQuery query = HibernateUtil.getSession().createSQLQuery(queryStr);
+			query.addEntity(UserLoginInfo.class);
+			query.setParameter("userName", bean.getName());
+			// query.setParameter("password", bean.getPassword());
+			List<UserLoginInfo> userLoginInfo = query.list();
+			// UserLoginInfo userLoginInfo = (UserLoginInfo)
+			// session.get(UserLoginInfo.class, bean.getName());
+			HibernateUtil.getSession().getTransaction().commit();
+			// if (tx!=null) tx.rollback();
+			// HibernateUtil.getSession().close();
+			System.out.println("query success");
+
+			//MemCacheUtil.getMemCachedClient().add(bean.getName(), 0, userLoginInfo);
+			return userLoginInfo;
+			// TODO Auto-generated method stub
+
+		}
+	//}
 
 	/**
 	 * Update Login Time
